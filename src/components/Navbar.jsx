@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, SearchIcon, User, XIcon } from "lucide-react";
+import { Menu, SearchIcon, XIcon } from "lucide-react";
 import { assets } from "../assets/assets";
 export default function Navbar() {
   const navigate = useNavigate();
@@ -33,25 +33,28 @@ export default function Navbar() {
 
         <Link
           onClick={() => {
-            scrollTo(0, 0), setIsMenuOpen(false);
+            scrollTo(0, 0);
+            setIsMenuOpen(false);
           }}
           to="/"
         >
-          Home
+          Trang chủ
         </Link>
 
         <Link
           onClick={() => {
-            scrollTo(0, 0), setIsMenuOpen(false);
+            scrollTo(0, 0);
+            setIsMenuOpen(false);
           }}
           to="/movies"
         >
-          Movies
+          Phim
         </Link>
 
         <Link
           onClick={() => {
-            scrollTo(0, 0), setIsMenuOpen(false);
+            scrollTo(0, 0);
+            setIsMenuOpen(false);
           }}
           to="/theater"
         >
@@ -60,7 +63,8 @@ export default function Navbar() {
 
         <Link
           onClick={() => {
-            scrollTo(0, 0), setIsMenuOpen(false);
+            scrollTo(0, 0);
+            setIsMenuOpen(false);
           }}
           to="/releases"
         >
@@ -69,7 +73,8 @@ export default function Navbar() {
 
         <Link
           onClick={() => {
-            scrollTo(0, 0), setIsMenuOpen(false);
+            scrollTo(0, 0);
+            setIsMenuOpen(false);
           }}
           to="/favorite"
         >
@@ -85,7 +90,7 @@ export default function Navbar() {
           }}
           className="px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer"
         >
-          Login
+          Đăng nhập
         </button>
       </div>
 

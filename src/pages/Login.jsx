@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Overlay from "./../components/Overlay";
 import useNavigateBack from "../hooks/useNavigateBack";
 
@@ -17,7 +17,7 @@ export default function Login() {
       {/* Modal */}
       <div className="relative bg-white w-full rounded-xl shadow-lg max-w-sm p-6 z-10">
         <h2 className="text-lg font-semibold mb-4 text-black">
-          {mode === "signin" ? "Sign In" : "Sign Up"}
+          {mode === "signin" ? "Đăng nhập" : "Đăng ký"}
         </h2>
 
         <form className="space-y-4">
@@ -33,7 +33,7 @@ export default function Login() {
 
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 text-black"
@@ -45,7 +45,7 @@ export default function Login() {
             <>
               <input
                 type="text"
-                placeholder="Full name"
+                placeholder="Họ và tên"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 text-black"
@@ -61,7 +61,7 @@ export default function Login() {
 
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 text-black"
@@ -69,7 +69,7 @@ export default function Login() {
 
               <input
                 type="password"
-                placeholder="Confirm Password"
+                placeholder="Nhập lại mật khẩu"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 text-black"
@@ -81,29 +81,29 @@ export default function Login() {
             type="submit"
             className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-400 cursor-pointer"
           >
-            {mode === "signin" ? "Sign In" : "Sign Up"}
+            {mode === "signin" ? "Đăng nhập" : "Đăng ký"}
           </button>
         </form>
 
         <p className="mt-4 text-sm text-center text-gray-600">
           {mode === "signin" ? (
             <>
-              Don't have an account?{" "}
+              Chưa có tài khoản?{" "}
               <button
                 className="text-red-500 cursor-pointer"
                 onClick={() => setMode("signup")}
               >
-                Sign Up
+                Đăng ký
               </button>
             </>
           ) : (
             <>
-              Already an account?{" "}
+              Đã có tài khoản?{" "}
               <button
                 className="text-red-500 cursor-pointer"
                 onClick={() => setMode("signin")}
               >
-                Sign In
+                Đăng nhập
               </button>
             </>
           )}
