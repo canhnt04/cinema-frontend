@@ -1,5 +1,6 @@
 import { ArrowRight, CalendarIcon, ClockIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Button from "./ui/Button";
 
 export default function Poster() {
   const navigate = useNavigate();
@@ -26,14 +27,14 @@ export default function Poster() {
           Ban Nha trong khi kẻ chủ mưu thao túng cảnh sát để thực hiện kế hoạch
           của hắn.
         </p>
-        <button
-          className="flex items-center gap-1 px-6 py-3 text-sm bg-primary hover:bg-primary-dull
-        transition rounded-full font-medium cursor-pointer"
+        <Button
+          variant="primary"
+          className="flex items-center gap-1 px-6 py-3 text-sm"
           onClick={() => navigate("/movies")}
         >
           Khám phá ngay
           <ArrowRight className="w-5 h-5 hover:translate-x-0.5" />
-        </button>
+        </Button>
       </div>
     </>
   );

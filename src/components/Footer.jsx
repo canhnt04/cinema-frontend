@@ -48,6 +48,12 @@ const Footer = () => {
                 <MailIcon className="w-4.5 h-4.5" />
                 <p>canh040904@gmail.com</p>
               </div>
+              {/* <div className="flex items-center gap-2 mt-2">
+                <MapPinIcon className="w-4.5 h-4.5 flex-shrink-0" />
+                <p>
+                  273 An Dương Vương, Phường Chợ Quán, Quận 5, TP. Hồ Chí Minh.
+                </p>
+              </div> */}
             </div>
           </div>
         </div>
