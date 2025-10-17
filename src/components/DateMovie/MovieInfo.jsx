@@ -32,7 +32,7 @@ const MovieInfo = ({ movie }) => {
         </div>
         <div className="flex items-center gap-3 mt-2">
           <Users2Icon className="w-5 h-5" />
-          <p className="text-gray-300">Diễn viên: {movie.actor}</p>
+          <p className="text-gray-300">Diễn viên: {movie.cast}</p>
         </div>
 
         <div>

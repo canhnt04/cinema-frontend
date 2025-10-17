@@ -43,29 +43,32 @@ export default function Navbar() {
             scrollTo(0, 0);
             setIsMenuOpen(false);
           }}
-          to="/theater"
+          to="/"
         >
-          Theaters
+          Thể loại
         </Link>
 
         <Link
           onClick={() => {
-            scrollTo(0, 0);
+            scrollTo(0, document.body.scrollHeight - 500);
             setIsMenuOpen(false);
           }}
-          to="/releases"
+          to="/"
         >
-          Releases
+          Trailer
         </Link>
 
         <Link
           onClick={() => {
-            scrollTo(0, 0);
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: "smooth",
+            });
             setIsMenuOpen(false);
           }}
-          to="/favorite"
+          to="/"
         >
-          Favorites
+          Liên hệ
         </Link>
       </div>
 

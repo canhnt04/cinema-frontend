@@ -1,47 +1,58 @@
 import { Minus, Plus } from "lucide-react";
 import BlurCircle from "../BlurCircle";
-import { useBooking } from "../../context/BookingContext";
 import { useEffect } from "react";
+import { useBooking } from "./../../hooks/useBooking";
+import { showToast } from "../../helper/cooldownToast";
 
 const data = [
   {
     ticket_id: 1,
     type: "HSSV-U22",
     price: 45000,
-    quantity: 10,
+    quantity: 0,
   },
   {
     ticket_id: 2,
     type: "Người lớn",
     price: 90000,
-    quantity: 10,
+    quantity: 0,
   },
   {
     ticket_id: 3,
     type: "Trẻ em",
     price: 60000,
-    quantity: 10,
+    quantity: 0,
   },
 ];
 
 const SelectTicket = () => {
-  const { selectedTicket, setSelectedTicket } = useBooking();
-
+  const { selectedShowtime, selectedTicket, setSelectedTicket } = useBooking();
+  const currency = import.meta.env.VITE_CURRENCY;
   useEffect(() => {
-    const getTicket = async () => {
-      setSelectedTicket(data);
-    };
-    getTicket();
-  }, [selectedTicket, setSelectedTicket]);
+    setSelectedTicket(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChangeTicket = (id, delta) => {
-    setSelectedTicket((prev) => {
-      return prev.map((ticket) =>
-        ticket.ticket_id === id
-          ? { ...ticket, quantity: ticket.quantity + delta }
-          : ticket
-      );
-    });
+    if (!selectedShowtime) {
+      showToast("Vui lòng chọn khung giờ chiếu trước khi chọn vé");
+      return;
+    }
+    const list = selectedTicket ?? data;
+    const ticket = list.find((t) => t.ticket_id === id);
+    if (!ticket) return;
+
+    const newQuantity = Math.max(0, ticket.quantity + delta);
+    if (newQuantity > 5) {
+      showToast(`Loại vé ${ticket.type.toLowerCase()} được đặt tối đa 5 vé`);
+      return;
+    }
+
+    setSelectedTicket(
+      list.map((t) =>
+        t.ticket_id === id ? { ...t, quantity: newQuantity } : t
+      )
+    );
   };
 
   return (
@@ -59,18 +70,26 @@ const SelectTicket = () => {
           >
             <div className="text-sm p-4 flex flex-col gap-2">
               <p>{ticket.type}</p>
-              <p>{ticket.price.toLocaleString()}đ</p>
+              <p>
+                {ticket.price.toLocaleString()} {currency}
+              </p>
             </div>
             <div className="text-sm flex items-center gap-4 bg-gray-500 p-2 mx-4 my-4 rounded transition-all duration-500 hover:bg-yellow-300 hover:text-black">
-              <Minus
+              <button
+                type="button"
                 onClick={() => handleChangeTicket(ticket.ticket_id, -1)}
-                className="w-4 h-4 hover:bg-primary hover:rounded-2xl hover:text-white transition-all duration-300 cursor-pointer"
-              ></Minus>
+                className=" hover:bg-primary hover:rounded-2xl hover:text-white transition-all duration-300 cursor-pointer"
+              >
+                <Minus className="w-4 h-4" />
+              </button>
               <p className="text-base">{ticket.quantity}</p>
-              <Plus
+              <button
+                type="button"
                 onClick={() => handleChangeTicket(ticket.ticket_id, 1)}
-                className="w-4 h-4 hover:bg-primary hover:rounded-2xl hover:text-white transition-all duration-300 cursor-pointer"
-              ></Plus>
+                className=" hover:bg-primary hover:rounded-2xl hover:text-white transition-all duration-300 cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
             </div>
           </div>
         ))}

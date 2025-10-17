@@ -26,13 +26,14 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
         />
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            layout
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.45, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="overflow-hidden px-5 pb-5"
           >
             <h4 className="text-balance text-base text-white font-medium">

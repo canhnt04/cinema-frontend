@@ -65,11 +65,15 @@ const Login = () => {
             </>
           )}
           <div className="flex gap-x-3 mt-3">
-            <Button className="flex-1 py-3" variant="primary" type="button">
+            <Button
+              className="flex-1 py-3 active:scale-95"
+              variant="primary"
+              type="button"
+            >
               {mode === "login" ? "Sign In" : "Sign Up"}
             </Button>
             <Button
-              className="flex-1 py-3"
+              className="flex-1 py-3 active:scale-95"
               variant="secondary"
               type="button"
               onClick={handleClose}

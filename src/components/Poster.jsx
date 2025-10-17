@@ -29,7 +29,7 @@ export default function Poster() {
         </p>
         <Button
           variant="primary"
-          className="flex items-center gap-1 px-6 py-3 text-sm"
+          className="flex items-center gap-1 px-6 py-3 text-sm active:scale-95"
           onClick={() => navigate("/movies")}
         >
           Khám phá ngay

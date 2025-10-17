@@ -10,7 +10,7 @@ const TrailerSection = () => {
   return (
     <div className="px-6 md:px-16 lg:px-24 xl:px-44 py-20 overflow-hidden">
       <p className="text-gray-300 font-medium text-lg max-w-[960px] mx-auto">
-        Giới thiệu
+        Trailer
       </p>
       <div className="relative mt-6">
         <BlurCircle top="-100px" right="-90px" />

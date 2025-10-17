@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useBooking } from "../../context/BookingContext";
 import TheaterCard from "./TheaterCard";
+import { useBooking } from "../../hooks/useBooking";
 
 const theaters = [
   {

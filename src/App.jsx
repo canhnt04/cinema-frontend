@@ -5,10 +5,18 @@ import routes from "./routes";
 export default function App() {
   return (
     <>
-      <Toaster />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 2000,
+          success: { duration: 1000 },
+          error: { duration: 1000 },
+        }}
+        containerStyle={{ top: "36px", right: "30px" }}
+      />
       <Routes>
         {routes.map((group, index) => (
-          <Route key={index} element={group.layout}>
+          <Route key={index} path={group.path} element={group.layout}>
             {group.pages.map((page) => (
               <Route key={page.key} path={page.path} element={page.element} />
             ))}

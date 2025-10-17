@@ -28,9 +28,9 @@ const Header = () => {
           onClick={() => {
             navigate("/login");
           }}
-          className="px-5 py-1.5 sm:px-10 sm:py-3 m-3"
+          className="px-5 py-1.5 sm:px-10 sm:py-3 m-3 active:scale-95"
         >
-          Login
+          ĐĂNG NHẬP
         </Button>
       </div>
     </div>

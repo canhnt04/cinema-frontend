@@ -7,6 +7,7 @@ import tuChienTrenKhong from "./tu-chien-tren-khong-poster.webp";
 import facebookLogo from "./facebookLogo.png";
 import googleChromeLogo from "./googleChromeLogo.png";
 import imgScreen from "./img-screen.png";
+import avatar from "./avatar.jpg";
 
 export const assets = {
   logo,
@@ -16,6 +17,7 @@ export const assets = {
   facebookLogo,
   googleChromeLogo,
   imgScreen,
+  avatar,
 };
 
 export const movies = {
