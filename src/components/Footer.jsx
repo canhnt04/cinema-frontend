@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="px-6 md:px-16 lg:px-24 xl:px-36 pt-8 w-full text-gray-500">
       <div className="flex flex-col md:flex-row justify-between gap-10 border-b border-gray-500/50 pb-6">
         <div className="md:max-w-96">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 select-none">
             <img src={assets.logo} alt="" className="w-12 h-12 rounded-full" />
             <p className="text-2xl font-bold text-white/70">Cinema</p>
           </div>
@@ -58,7 +58,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="pt-4 text-center text-xs md:text-sm pb-5">
+      <p className="pt-4 text-center text-xs md:text-sm pb-5 select-none">
         Copyright 2025 © TeamBCP. All Right Reserved.
       </p>
     </footer>

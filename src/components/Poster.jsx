@@ -8,7 +8,7 @@ export default function Poster() {
   return (
     <>
       <div
-        className={`flex flex-col items-start justify-center gap-4 px-6 md:px-16 lg:px-36 bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.1)),url("assets/poster.jpg")] bg-cover h-screen`}
+        className={`flex flex-col items-start justify-center gap-4 px-6 md:px-16 lg:px-36 bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.1)),url("assets/poster.jpg")] bg-cover h-screen select-none`}
       >
         <h1 className="text-5xl md:text-[70px] md:leading-18 font-semibold max-w-110">
           Money Heist

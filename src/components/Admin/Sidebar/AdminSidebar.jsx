@@ -3,6 +3,7 @@ import {
   LayoutDashboardIcon,
   ListCollapseIcon,
   TicketIcon,
+  UsersIcon,
 } from "lucide-react";
 import { assets } from "../../../assets/assets";
 import { NavLink } from "react-router-dom";
@@ -28,6 +29,11 @@ const AdminSidebar = () => {
       name: "List Bookings",
       path: "/admin/list-bookings",
       icon: ListCollapseIcon,
+    },
+    {
+      name: "List Users",
+      path: "/admin/list-users",
+      icon: UsersIcon,
     },
   ];
   return (

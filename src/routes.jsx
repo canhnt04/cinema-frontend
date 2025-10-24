@@ -11,14 +11,13 @@ import ListShows from "./pages/Admin/ListShows";
 import ListBookings from "./pages/Admin/ListBookings";
 import { BookingProvider } from "./provider/BookingProvider";
 import { UserProvider } from "./provider/UserProvider";
+import ListUsers from "./pages/Admin/ListUsers";
+import BookingHistory from "./pages/BookingHistory";
 
 const routes = [
   {
     layout: null,
-    pages: [
-      { key: "login", path: "/login", element: <Login /> },
-      { key: "dashboard", path: "/dashboard", element: <Dashboard /> },
-    ],
+    pages: [{ key: "login", path: "/login", element: <Login /> }],
   },
   {
     layout: (
@@ -30,7 +29,7 @@ const routes = [
     ),
     pages: [
       { key: "home", path: "/", element: <Home /> },
-      { key: "movies", path: "/movies", element: <Movies /> },
+      { key: "movies", path: "/movies/:type", element: <Movies /> },
       {
         key: "movies/details",
         path: "/movies/:id",
@@ -40,6 +39,11 @@ const routes = [
         key: "my-bookings",
         path: "/my-bookings",
         element: <MyBookings />,
+      },
+      {
+        key: "booking-history",
+        path: "/booking-history",
+        element: <BookingHistory />,
       },
     ],
   },
@@ -55,6 +59,7 @@ const routes = [
         path: "list-bookings",
         element: <ListBookings />,
       },
+      { key: "list-users", path: "list-users", element: <ListUsers /> },
     ],
   },
 ];

@@ -1,3 +1,5 @@
+import LoadingSpinner from "./LoadingSpinner";
+
 export default function Button({
   children,
   variant = "primary",
@@ -22,26 +24,7 @@ export default function Button({
       }`}
       {...props}
     >
-      {loading ? (
-        <>
-          <svg
-            className="animate-spin h-5 w-5 mr-2 text-white"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-              fill="none"
-            />
-          </svg>
-          Đang xử lý...
-        </>
-      ) : (
-        children
-      )}
+      {loading ? <LoadingSpinner /> : children}
     </button>
   );
 }
