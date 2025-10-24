@@ -13,6 +13,7 @@ import { BookingProvider } from "./provider/BookingProvider";
 import { UserProvider } from "./provider/UserProvider";
 import ListUsers from "./pages/Admin/ListUsers";
 import BookingHistory from "./pages/BookingHistory";
+import SearchPage from "./pages/SearchPage";
 
 const routes = [
   {
@@ -44,6 +45,11 @@ const routes = [
         key: "booking-history",
         path: "/booking-history",
         element: <BookingHistory />,
+      },
+      {
+        key: "search-page",
+        path: "/search",
+        element: <SearchPage />,
       },
     ],
   },

@@ -1,17 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import {
-  HistoryIcon,
-  LogOutIcon,
-  SearchIcon,
-  UserCog2Icon,
-} from "lucide-react";
+import { HistoryIcon, LogOutIcon, UserCog2Icon } from "lucide-react";
 import Navbar from "./Navbar";
 import Button from "./ui/Button";
 import { useUser } from "../hooks/useUser";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { showToast } from "./../helper/cooldownToast";
+import SearchBar from "./ui/SearchBar";
+import useClickOutside from "../hooks/useClickOutside";
 const Header = () => {
   const navigate = useNavigate();
   const { user } = useUser();
@@ -19,16 +16,7 @@ const Header = () => {
   const [isDropdown, setIsDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(dropdownRef, () => setIsDropdown(false));
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 select-none">
@@ -48,7 +36,7 @@ const Header = () => {
 
       {/* Search & Login */}
       <div className="flex items-center gap-8">
-        <SearchIcon className="max-md:hidden w-6 h-6 cursor-pointer" />
+        <SearchBar />
         {user ? (
           <div
             ref={dropdownRef}
@@ -75,11 +63,14 @@ const Header = () => {
                     <p className="text-sm">Tài khoản</p>
                   </div>
                   <div
-                    onClick={() => navigate("/booking-history")}
+                    onClick={() => {
+                      navigate("/booking-history");
+                      scrollTo(0, 0);
+                    }}
                     className="flex gap-2 transition-colors hover:bg-gray-900 p-3 w-full border-b border-gray-600"
                   >
                     <HistoryIcon className="w-5 h-5 text-gray-300" />
-                    <p className="text-sm">Lịch sử</p>
+                    <p className="text-sm">Lịch sử mua hàng</p>
                   </div>
                 </div>
                 <div
