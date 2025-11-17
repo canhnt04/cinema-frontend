@@ -58,7 +58,13 @@ const Header = () => {
                   </p>
                 </div>
                 <div className="flex flex-wrap my-1 items-center cursor-pointer">
-                  <div className="flex gap-2 transition-colors hover:bg-gray-900 p-3 w-full">
+                  <div
+                    onClick={() => {
+                      navigate("/profile");
+                      scrollTo(0, 0);
+                    }}
+                    className="flex gap-2 transition-colors hover:bg-gray-900 p-3 w-full"
+                  >
                     <UserCog2Icon className="w-5 h-5 text-gray-300" />
                     <p className="text-sm">Tài khoản</p>
                   </div>
@@ -70,7 +76,7 @@ const Header = () => {
                     className="flex gap-2 transition-colors hover:bg-gray-900 p-3 w-full border-b border-gray-600"
                   >
                     <HistoryIcon className="w-5 h-5 text-gray-300" />
-                    <p className="text-sm">Lịch sử mua hàng</p>
+                    <p className="text-sm">Lịch sử mua vé</p>
                   </div>
                 </div>
                 <div

@@ -14,6 +14,7 @@ import { UserProvider } from "./provider/UserProvider";
 import ListUsers from "./pages/Admin/ListUsers";
 import BookingHistory from "./pages/BookingHistory";
 import SearchPage from "./pages/SearchPage";
+import Profile from "./pages/Profile";
 
 const routes = [
   {
@@ -45,6 +46,12 @@ const routes = [
         key: "booking-history",
         path: "/booking-history",
         element: <BookingHistory />,
+      },
+
+      {
+        key: "profile",
+        path: "/profile",
+        element: <Profile />,
       },
       {
         key: "search-page",

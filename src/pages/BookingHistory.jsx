@@ -20,7 +20,7 @@ const BookingHistory = () => {
       <BlurCircle top="50px" left="0px" />
       <BlurCircle top="100px" right="50px" />
       <BlurCircle bottom="0px" left="600px" />
-      <h2 className="text-2xl font-semibold mb-4">LỊCH SỬ MUA HÀNG</h2>
+      <h2 className="text-2xl font-semibold mb-4">LỊCH SỬ MUA VÉ</h2>
       {dummyShowsData.map((booking) => (
         <BookingCard key={booking.movie_id} booking={booking} />
       ))}
