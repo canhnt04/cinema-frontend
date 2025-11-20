@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import BlurCircle from "./../../components/BlurCircle";
 import { dummyDashboardData, dummyShowsData } from "../../assets/mockData";
 import { timeFormatReleaseDate } from "../../helper/timeFormat";
+import FullPageSpinner from "../../components/ui/FullPageSpinner";
 
 const Dashboard = () => {
   const currency = import.meta.env.VITE_CURRENCY;
@@ -112,7 +113,7 @@ const Dashboard = () => {
       </div>
     </>
   ) : (
-    <div className=""></div>
+    <FullPageSpinner />
   );
 };
 

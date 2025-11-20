@@ -2,9 +2,10 @@ import { useState } from "react";
 import { dummyShowsData } from "../../assets/mockData";
 import { timeFormatReleaseDate } from "./../../helper/timeFormat";
 import { EyeIcon, LockIcon, PenIcon } from "lucide-react";
-import MovieDetailModal from "./Modal/MovieDetailModal";
+import MovieDetailModal from "./Modals/MovieDetailModal";
 import Toolbar from "../../components/ui/Toolbar";
-import EditMovieModal from "./Modal/EditMovieModal";
+import EditMovieModal from "./Modals/EditMovieModal";
+import FullPageSpinner from "../../components/ui/FullPageSpinner";
 const ListMovies = () => {
   // false -> true
   const [loading, setLoading] = useState(false);
@@ -91,7 +92,7 @@ const ListMovies = () => {
       )}
     </>
   ) : (
-    <div>Loading</div>
+    <FullPageSpinner />
   );
 };
 

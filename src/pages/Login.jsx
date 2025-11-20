@@ -12,7 +12,12 @@ const Login = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleClose = useNavigateBack();
+  const handleClose = () => {
+    setIsClosing(true);
+    navigateBack();
+  };
+
+  if (isClosing) return null;
 
   const handleSubmit = (e, mode) => {
     e.preventDefault();

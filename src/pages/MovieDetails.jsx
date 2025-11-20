@@ -9,6 +9,8 @@ import SelectTicket from "../components/Ticket/SelectTicket";
 import SeatLayout from "../components/Seat/SeatLayout";
 import { useBooking } from "../hooks/useBooking";
 import { getShowtimes } from "../service/showtimes";
+import FullPageSpinner from "../components/ui/FullPageSpinner";
+
 const MovieDetails = () => {
   const { id } = useParams();
   const [show, setShow] = useState(null);
@@ -61,7 +63,7 @@ const MovieDetails = () => {
       {selectedShowtime && <SeatLayout />}
     </div>
   ) : (
-    <div>Loading...</div>
+    <FullPageSpinner />
   );
 };
 export default MovieDetails;
