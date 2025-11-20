@@ -1,12 +1,13 @@
 import { ClockIcon, TagIcon, UserCog2Icon, Users2Icon } from "lucide-react";
 import BlurCircle from "../BlurCircle";
 import { timeFormatDuration } from "../../helper/timeFormat";
+import noImage from "../../assets/no_image.jpg";
 
 const MovieInfo = ({ movie }) => {
   return (
     <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
       <img
-        src={movie.poster_url}
+        src={movie.poster_url || noImage}
         alt=""
         className="max-md:mx-auto rounded-xl h-104 md:h-130 max-w-70 md:max-w-120 object-cover"
       />

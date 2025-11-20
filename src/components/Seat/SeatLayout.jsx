@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { showToast } from "../../helper/cooldownToast";
 
 const SeatLayout = () => {
-  const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+  const rows = ["A", "B", "C", "D", "E", "F", "G"];
   const { selectedTicket, selectedSeats, setSelectedSeats } = useBooking();
   const navigate = useNavigate();
 

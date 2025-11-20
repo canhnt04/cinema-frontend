@@ -18,7 +18,7 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
         onClick={onToggle}
         className="flex justify-between items-center p-5 cursor-pointer"
       >
-        <h2 className="text-2xl font-semibold">{theater.name}</h2>
+        <h2 className="text-2xl font-semibold">{theater.theater_name}</h2>
         <ChevronDown
           className={`w-6 h-6 transform transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
@@ -37,7 +37,7 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
             className="overflow-hidden px-5 pb-5"
           >
             <h4 className="text-balance text-base text-white font-medium">
-              {theater.address}
+              {theater.address || "Chưa có địa chỉ"}
             </h4>
 
             {roomsWithShowtimes.length > 0 ? (

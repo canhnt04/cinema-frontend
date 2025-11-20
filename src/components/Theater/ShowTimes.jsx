@@ -9,32 +9,32 @@ const ShowTimes = ({ showtimes = [] }) => {
   };
 
   const handleClick = (st) => {
-    if (selectedShowtime?.showtime_id === st.showtime_id) {
+    if (selectedShowtime?.showtime_id === st.showtimeId) {
       setSelectedShowtime(null);
       return;
     }
     setSelectedShowtime({
-      showtime_id: st.showtime_id,
-      theater_id: st.Theater_id,
-      room_id: st.room_id,
-      start_time: st.start_time,
+      showtime_id: st.showtimeId,
+      // theater_id: st.Theater_id,
+      // room_id: st.room_id,
+      // start_time: st.start_time,
     });
   };
 
   return (
     <div>
       {showtimes.map((st) => (
-        <div key={st.showtime_id} className="inline-block">
+        <div key={st.showtimeId} className="inline-block">
           <button
             type="button"
             onClick={() => handleClick(st)}
             className={`text-gray-100 text-sm font-medium border border-white/80 inline-block px-3 py-1 md:py-1.5 mr-2 mt-2 rounded hover:border-[#f3ea28] hover:text-[#f3ea28] transition-colors cursor-pointer ${
-              selectedShowtime?.showtime_id === st.showtime_id
+              selectedShowtime?.showtime_id === st.showtimeId
                 ? "!text-black bg-[#f3ea28]"
                 : ""
             }`}
           >
-            {formatTime(st.start_time)}
+            {formatTime(st.startTime)}
           </button>
         </div>
       ))}

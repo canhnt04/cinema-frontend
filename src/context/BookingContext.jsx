@@ -1,6 +1,8 @@
 import { createContext } from "react";
 
 export const BookingContext = createContext({
+  selectedMoiveDetail: null,
+  setSelectedMoiveDetail: () => {},
   selectedDate: null,
   setSelectedDate: () => {},
   selectedTheater: null,

@@ -2,14 +2,79 @@ import { useEffect, useState } from "react";
 import useNavigateBack from "./../hooks/useNavigateBack";
 import Button from "../components/ui/Button";
 import { assets } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
+import { EarthLock } from "lucide-react";
 
 const Login = () => {
   const [mode, setMode] = useState("login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleClose = useNavigateBack();
+
+  const handleSubmit = (e, mode) => {
+    e.preventDefault();
+    switch (mode) {
+      case "login":
+        const postData = {
+          email: username,
+          password: password,
+        };
+        fetch("http://localhost:8080/auth/login", {
+          method: "POST", // Specify the HTTP method as POST
+          headers: {
+            "Content-Type": "application/json", // Indicate that the body is JSON
+          },
+          body: JSON.stringify(postData), // Convert the JavaScript object to a JSON string
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json(); // Parse the JSON response
+          })
+          .then((data) => {
+            navigate("/");
+            console.log("Success:", data); // Handle the successful response data
+          })
+          .catch((error) => {
+            console.error("Error:", error); // Handle any errors during the fetch operation
+          });
+        break;
+      case "register":
+        const signUpData = {
+          email: username,
+          password,
+          confirmPassword,
+        };
+        fetch("http://localhost:8080/users", {
+          method: "POST", // Specify the HTTP method as POST
+          headers: {
+            "Content-Type": "application/json", // Indicate that the body is JSON
+          },
+          body: JSON.stringify(signUpData), // Convert the JavaScript object to a JSON string
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json(); // Parse the JSON response
+          })
+          .then((data) => {
+            console.log("Success:", data); // Handle the successful response data
+          })
+          .catch((error) => {
+            console.error("Error:", error); // Handle any errors during the fetch operation
+          });
+        break;
+
+      default:
+        console.log(mode);
+        break;
+    }
+  };
 
   useEffect(() => {
     setUsername("");
@@ -20,7 +85,7 @@ const Login = () => {
     <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-b to-[#999]">
       {/* Modal */}
       <form
-        action=""
+        onSubmit={(e) => handleSubmit(e, mode)}
         className="w-full max-w-96 sm:w-[400px] text-center border border-zinc-300/60 rounded-2xl px-8 bg-white"
       >
         <h1 className="text-zinc-900 text-3xl font-semibold mt-10">
@@ -68,7 +133,7 @@ const Login = () => {
             <Button
               className="flex-1 py-3 active:scale-95"
               variant="primary"
-              type="button"
+              type="submit"
             >
               {mode === "login" ? "Sign In" : "Sign Up"}
             </Button>

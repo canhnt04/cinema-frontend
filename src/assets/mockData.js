@@ -2,7 +2,7 @@ import muaDo from "./mua-do.jpg";
 // Movies
 export const movies = [
   {
-    movie_id: 1,
+    movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
     title: "Mưa đỏ",
     genre: "Hành động",
     duration: 125,
@@ -14,7 +14,7 @@ export const movies = [
     cast: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
   },
   {
-    movie_id: 2,
+    movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
     title: "The Batman",
     genre: "Action, Crime",
     duration: 175,

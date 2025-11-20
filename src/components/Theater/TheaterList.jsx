@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TheaterCard from "./TheaterCard";
 import { useBooking } from "../../hooks/useBooking";
+import axiosClient from "../../config/axios";
 
 const theaters = [
   {
@@ -77,26 +78,20 @@ const TheaterList = () => {
 
   useEffect(() => {
     const getTheater = async () => {
-      setTheaterList(theaters);
+      const data = await axiosClient.get(
+        `/movies/e84db94e-51cf-41ad-b76d-6e77e42f0f31/showtimes?date=${selectedDate}`
+      );
+      if (data) {
+        setTheaterList(data?.theaters);
+      }
     };
     getTheater();
-  }, []);
-
-  const theaterWithDate = theaterList.map((theater) => {
-    const rooms = theater.rooms.map((room) => {
-      const showtimes = room.showtimes.filter((st) =>
-        st.start_time.startsWith(selectedDate)
-      );
-      return { ...room, showtimes: showtimes };
-    });
-    return { ...theater, rooms: rooms };
-  });
-
+  }, [selectedDate]);
   return (
     <div className="flex flex-col gap-2 w-full max-w-3xl mx-auto mt-16 px-4">
       <h2 className="uppercase text-3xl font-semibold pb-8">Danh sách rạp</h2>
       <div className="space-y-4">
-        {theaterWithDate.map((theater) => {
+        {theaterList.map((theater) => {
           return (
             <TheaterCard
               key={theater.theater_id}
