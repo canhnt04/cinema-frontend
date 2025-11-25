@@ -31,7 +31,7 @@ const routes = [
     ),
     pages: [
       { key: "home", path: "/", element: <Home /> },
-      { key: "movies", path: "/movies/:type", element: <Movies /> },
+      // { key: "movies", path: "/movies/:type", element: <Movies /> },
       {
         key: "movies/details",
         path: "/movies/:id",

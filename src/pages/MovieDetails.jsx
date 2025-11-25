@@ -10,18 +10,14 @@ import SeatLayout from "../components/Seat/SeatLayout";
 import { useBooking } from "../hooks/useBooking";
 import { getShowtimes } from "../service/showtimes";
 import FullPageSpinner from "../components/ui/FullPageSpinner";
+import { getMovieById } from "../service/movie";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [show, setShow] = useState(null);
   const [movieShowtimes, setMovieShowtimes] = useState([]);
 
-  const {
-    selectedMoiveDetail,
-    setSelectedMoiveDetail,
-    selectedShowtime,
-    selectedDate,
-  } = useBooking();
+  const { selectedShowtime, setSelectedShowtime, selectedDate } = useBooking();
 
   const selectedMovieId = id;
 
@@ -42,25 +38,32 @@ const MovieDetails = () => {
     : [];
 
   useEffect(() => {
+    const loadMovieInfo = async () => {
+      const data = await getMovieById(selectedMovieId);
+      if (data) {
+        setShow(data.result);
+      }
+    };
     const loadShowtimes = async () => {
       const data = await getShowtimes(selectedMovieId);
       if (data) {
         setMovieShowtimes(data.result); // mảng suất chiếu
       }
     };
-    const show = movies.find((show) => show.movie_id == selectedMovieId);
 
+    loadMovieInfo();
     loadShowtimes();
-    setShow(show);
   }, [id]);
 
   return show && movieShowtimes?.length > 0 ? (
     <div className="px-6 md:px-16 lg:px-40 pt-30 md:pt-50">
       <MovieInfo movie={show} />
       <DateSelect dates={uniqueDates} />
-      {selectedDate && <TheaterList />}
+      {selectedDate && <TheaterList movieId={selectedMovieId} />}
       {selectedShowtime && <SelectTicket />}
-      {selectedShowtime && <SeatLayout />}
+      {selectedShowtime && (
+        <SeatLayout showtimeId={selectedShowtime?.showtimeId} />
+      )}
     </div>
   ) : (
     <FullPageSpinner />

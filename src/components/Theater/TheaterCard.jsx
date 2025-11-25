@@ -10,7 +10,7 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
 
   return (
     <div
-      className={`bg-gray-600 text-white rounded shadow ${
+      className={`bg-gray-600 text-white rounded shadow transition ${
         isOpen ? "!bg-primary-dull text-yellow-300" : ""
       }`}
     >

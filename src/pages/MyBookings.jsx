@@ -4,31 +4,31 @@ import { useNavigate } from "react-router-dom";
 import { ClockIcon, FilmIcon } from "lucide-react";
 import Countdown from "../components/ui/Countdown";
 import { timeFormatShowtime } from "../helper/timeFormat";
-
+import { useBooking } from "../hooks/useBooking";
+import { useEffect } from "react";
 const MyBookings = () => {
   const currency = import.meta.env.VITE_CURRENCY;
 
   const navigate = useNavigate();
-  // const {
-  //   selectedDate,
-  //   setSelectedDate,
-  //   selectedTheater,
-  //   setSelectedTheater,
-  //   selectedShowtime,
-  //   setSelectedShowtime,
-  //   selectedTicket,
-  //   setSelectedTicket,
-  //   selectedSeats,
-  //   setSelectedSeats,
-  // } = useBooking();
-  // const [loading, setLoading] = useState(true);
+  const {
+    selectedDate,
+    setSelectedDate,
+    selectedTheater,
+    setSelectedTheater,
+    selectedShowtime,
+    setSelectedShowtime,
+    selectedTicket,
+    setSelectedTicket,
+    selectedSeats,
+    setSelectedSeats,
+  } = useBooking();
 
-  // useEffect(() => {
-  //   const getMyBookings = async () => {
-  //     setLoading(false);
-  //   };
-  //   getMyBookings();
-  // }, []);
+  console.log("selectedDate: ", selectedDate);
+  console.log("selectedTheater: ", selectedTheater);
+  console.log("selectedShowtime: ", selectedShowtime);
+  console.log("selectedTicket: ", selectedTicket);
+  console.log("selectedSeats: ", selectedSeats);
+  useEffect(() => {}, []);
 
   return (
     <div className="relative px-6 md:px-16 lg:px-40 pt-24 md:pt-36 min-h-[80vh]">

@@ -11,6 +11,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const [isClosing, setIsClosing] = useState(false);
+
+  const navigateBack = useNavigateBack();
 
   const handleClose = () => {
     setIsClosing(true);

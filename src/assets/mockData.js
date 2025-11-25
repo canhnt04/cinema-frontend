@@ -427,7 +427,7 @@ const dummyCastsData = [
 
 export const dummyShowsData = [
   {
-    movie_id: "324544",
+    movie_id: "f3c1d8b2-4b7f-4ab1-9a75-81c7a3c90410",
     id: 324544,
     title: "In the Lost Lands",
     description:
@@ -454,7 +454,7 @@ export const dummyShowsData = [
     duration: 105,
   },
   {
-    movie_id: "1232546",
+    movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
     id: 1232546,
     title: "Until Dawn",
     description:

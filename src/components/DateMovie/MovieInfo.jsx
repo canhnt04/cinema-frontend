@@ -7,7 +7,7 @@ const MovieInfo = ({ movie }) => {
   return (
     <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
       <img
-        src={movie.poster_url || noImage}
+        src={movie.posterUrl || noImage}
         alt=""
         className="max-md:mx-auto rounded-xl h-104 md:h-130 max-w-70 md:max-w-120 object-cover"
       />

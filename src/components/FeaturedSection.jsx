@@ -3,19 +3,20 @@ import { useNavigate } from "react-router-dom";
 import BlurCircle from "./BlurCircle";
 import MovieCard from "./MovieCard";
 import { dummyShowsData } from "../assets/mockData";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { filterNowShowing } from "../helper/MoviesFilter";
+import axiosClient from "../config/axios";
 
 const FeaturedSection = () => {
   const [visibleCount, setVisibleCount] = useState(4);
   const navigate = useNavigate();
   const listMovieRef = useRef(null);
 
-  const filteredMovie = filterNowShowing(dummyShowsData);
+  const [movies, setMovies] = useState([]);
 
   const handleShowMore = () => {
-    if (visibleCount < filteredMovie.length) {
-      setVisibleCount(Math.min(visibleCount + 4, filteredMovie.length));
+    if (visibleCount < movies.length) {
+      setVisibleCount(Math.min(visibleCount + 4, movies.length));
     } else {
       setVisibleCount(4);
     }
@@ -25,6 +26,16 @@ const FeaturedSection = () => {
       block: "start",
     });
   };
+  useEffect(() => {
+    const loadMovies = async () => {
+      const res = await axiosClient.get("/movies");
+      if (res) {
+        setMovies(res.result);
+      }
+    };
+
+    loadMovies();
+  }, []);
 
   return (
     <div className="px-6 md:px-16 lg:px-24 xl:px-44 overflow-hidden select-none">
@@ -46,8 +57,8 @@ const FeaturedSection = () => {
         ref={listMovieRef}
         className="flex flex-wrap max-sm:justify-center gap-8 mt-8"
       >
-        {filteredMovie.slice(0, visibleCount).map((show) => (
-          <MovieCard key={show.movie_id} movie={show} />
+        {movies.slice(0, visibleCount).map((show) => (
+          <MovieCard key={show.movieId} movie={show} />
         ))}
       </div>
 
@@ -57,7 +68,7 @@ const FeaturedSection = () => {
           className="px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition
         rounded-md font-medium cursor-pointer"
         >
-          {visibleCount < filteredMovie.length ? "Hiển thị thêm" : "Thu gọn"}
+          {visibleCount < movies.length ? "Hiển thị thêm" : "Thu gọn"}
         </button>
       </div>
     </div>
