@@ -5,7 +5,7 @@ const BookingCard = ({ booking }) => {
     <div className="flex flex-col md:flex-row justify-between bg-primary/8 border border-primary/20 rounded-lg mt-4 p-2 max-w-5xl">
       <div className="flex flex-col md:flex-row">
         <img
-          src={booking.poster_url}
+          src={booking.posterUrl}
           alt=""
           className="md:max-w-45 aspect-video h-auto object-cover object-bottom rounded"
         />

@@ -2,9 +2,14 @@
 // Online poster URLs used for movies
 export const movies = [
   {
-    movie_id: "f3c1d8b2-4b7f-4ab1-9a75-81c7a3c90410",
-    title: "Avengers: Endgame",
-    genre: "Action, Adventure",
+    movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
+    title: "Mưa đỏ",
+    genre: "Hành động",
+    duration: 125,
+    description:
+      "Kể về trận chiến cuối cùng chống lại thế lực xâm lược tàn bạo, khi bầu trời nhuốm màu đỏ máu bởi những cơn mưa lạ trút xuống khắp các thành phố. Đây không chỉ là một cuộc chiến sinh tồn, mà còn là hành trình của những con người bình thường buộc phải đứng lên bảo vệ quê hương.",
+    release_date: "2025-04-26",
+    poster_url: muaDo,
     director: "Anthony Russo, Joe Russo",
     cast: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
     duration: 181,
@@ -16,42 +21,14 @@ export const movies = [
   },
   {
     movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
-    title: "Joker",
-    genre: "Drama, Thriller",
-    director: "Todd Phillips",
-    cast: "Joaquin Phoenix",
-    duration: 122,
-    description:
-      "A gritty character study of Arthur Fleck, a man disregarded by society who transforms into the criminal mastermind known as the Joker.",
-    release_date: "2019-10-04",
-    poster_url:
-      "https://image.tmdb.org/t/p/original/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
-  },
-  {
-    movie_id: "c1a2b3d4-e5f6-4123-9987-abcdef123456",
-    title: "Inception",
-    genre: "Sci-Fi, Action",
-    director: "Christopher Nolan",
-    cast: "Leonardo DiCaprio, Joseph Gordon-Levitt",
-    duration: 148,
-    description:
-      "A thief who steals corporate secrets through dream-sharing technology must plant an idea into a CEO's mind.",
-    release_date: "2010-07-16",
-    poster_url:
-      "https://image.tmdb.org/t/p/original/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg",
-  },
-  {
-    movie_id: "b2b3b4b5-c6c7-48d0-aaaa-bbbbbbbbbbbb",
-    title: "Interstellar",
-    genre: "Sci-Fi, Drama",
-    director: "Christopher Nolan",
-    cast: "Matthew McConaughey, Anne Hathaway",
-    duration: 169,
-    description:
-      "A team of explorers travel through a wormhole in space to ensure humanity's survival.",
-    release_date: "2014-11-07",
-    poster_url:
-      "https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    title: "The Batman",
+    genre: "Action, Crime",
+    duration: 175,
+    description: "Bruce Wayne đối đầu với Riddler.",
+    release_date: "2022-03-04",
+    poster_url: muaDo,
+    director: "Matt Reeves",
+    cast: "Robert Pattinson, Zoë Kravitz, Paul Dano",
   },
   {
     movie_id: "d4d5d6d7-e8f9-4123-1111-222222222222",
@@ -93,239 +70,138 @@ export const movies = [
       "https://image.tmdb.org/t/p/original/5Le8zb4B1gqK5mCw2mWQwQJkR0E.jpg",
   },
   {
-    movie_id: "a7a8a9aa-bbcb-4123-7777-888888888888",
-    title: "Dune: Part Two",
-    genre: "Sci-Fi, Adventure",
-    director: "Denis Villeneuve",
-    cast: "Timothée Chalamet",
-    duration: 155,
-    description:
-      "Paul Atreides unites with Chani and the Fremen to seek revenge against those who destroyed his family.",
-    release_date: "2024-11-01",
-    poster_url:
-      "https://image.tmdb.org/t/p/original/8g18jFHCLXn1czFzZtF8P6Y0W3V.jpg",
+    movie_id: 6,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
+  },
+  {
+    movie_id: 7,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
+  },
+  {
+    movie_id: 8,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
+  },
+  {
+    movie_id: 9,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
+  },
+  {
+    movie_id: 10,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
+  },
+  {
+    movie_id: 11,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
+  },
+  {
+    movie_id: 12,
+    title: "Inside Out 2",
+    genre: "Animation, Comedy",
+    duration: 100,
+    description: "Hành trình mới của các cảm xúc trong đầu Riley.",
+    release_date: "2024-06-14",
+    poster_url: muaDo,
+    director: "Kelsey Mann",
+    cast: "Amy Poehler, Phyllis Smith, Lewis Black",
   },
 ];
 
-// Theaters
+// theaters
 export const theaters = [
+  { theater_id: 1, name: "CGV Vincom", address: "Vincom Đồng Khởi, Q1, HCM" },
   {
-    theater_id: "c2b9f529-84ce-4b1a-9d84-50cd9319efb1",
-    name: "CGV Vincom Center",
-    address: "Vincom Center, Hanoi",
-  },
-  {
-    theater_id: "1f2c2bb4-2a8c-4ed1-a523-63ad1e6d82c2",
-    name: "Lotte Cinema Landmark",
-    address: "Landmark 81, HCMC",
-  },
-  {
-    theater_id: "3a3b3c3d-4d4e-4f4f-9f9f-777777777777",
+    theater_id: 2,
     name: "Galaxy Nguyễn Du",
-    address: "116 Nguyễn Du, Q1, HCMC",
+    address: "116 Nguyễn Du, Q1, HCM",
   },
-  {
-    theater_id: "4a4b4c4d-5d5e-6f6f-8f8f-999999999999",
-    name: "BHD Star Bitexco",
-    address: "Bitexco Tower, HCMC",
-  },
+  { theater_id: 3, name: "Lotte Cinema", address: "Gò Vấp, HCM" },
 ];
 
-// Rooms (linked to theaters)
+// Rooms
 export const rooms = [
-  {
-    room_id: "b3fa70f8-6293-4b12-a41f-522b06df7d81",
-    theater_id: "c2b9f529-84ce-4b1a-9d84-50cd9319efb1",
-    name: "Room 1",
-    type: "IMAX",
-    capacity: 120,
-  },
-  {
-    room_id: "dd312cb1-8ef9-4bec-a3da-a618f32f60a5",
-    theater_id: "1f2c2bb4-2a8c-4ed1-a523-63ad1e6d82c2",
-    name: "Room A",
-    type: "Standard",
-    capacity: 80,
-  },
-  {
-    room_id: "r3c1-0001-1111-2222-333333333333",
-    theater_id: "c2b9f529-84ce-4b1a-9d84-50cd9319efb1",
-    name: "Room 2",
-    type: "Standard",
-    capacity: 100,
-  },
-  {
-    room_id: "r3c1-0002-1111-2222-444444444444",
-    theater_id: "3a3b3c3d-4d4e-4f4f-9f9f-777777777777",
-    name: "Room B",
-    type: "Premium",
-    capacity: 70,
-  },
-  {
-    room_id: "r3c1-0003-1111-2222-555555555555",
-    theater_id: "4a4b4c4d-5d5e-6f6f-8f8f-999999999999",
-    name: "Room VIP",
-    type: "VIP",
-    capacity: 40,
-  },
-  {
-    room_id: "r3c1-0004-1111-2222-666666666666",
-    theater_id: "1f2c2bb4-2a8c-4ed1-a523-63ad1e6d82c2",
-    name: "Room C",
-    type: "4DX",
-    capacity: 60,
-  },
-  {
-    room_id: "r3c1-0005-1111-2222-777777777777",
-    theater_id: "c2b9f529-84ce-4b1a-9d84-50cd9319efb1",
-    name: "Room 3",
-    type: "Standard",
-    capacity: 90,
-  },
-  {
-    room_id: "r3c1-0006-1111-2222-888888888888",
-    theater_id: "3a3b3c3d-4d4e-4f4f-9f9f-777777777777",
-    name: "Room C",
-    type: "Standard",
-    capacity: 85,
-  },
+  { room_id: 1, theater_id: 1, name: "Room 1", capacity: 50 },
+  { room_id: 2, theater_id: 1, name: "Room 2", capacity: 100 },
+  { room_id: 3, theater_id: 2, name: "Room A", capacity: 70 },
+  { room_id: 4, theater_id: 3, name: "Room VIP", capacity: 40 },
 ];
 
-// Seats (generate a reasonable set per room; smaller set for demo)
+// Seats
 export const seats = [
-  // Room b3fa70f8 (Room 1) rows A-D x 8 seats = 32
-  ...Array.from({ length: 32 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 8)); // A-D
-    const number = (i % 8) + 1;
-    return {
-      seat_id: `s-room1-${row}${number}`,
-      room_id: "b3fa70f8-6293-4b12-a41f-522b06df7d81",
-      seat_row: row,
-      seat_number: number,
-      seat_type: row === "A" || row === "B" ? "VIP" : "normal",
-    };
-  }),
-  // Room dd312cb1 (Room A) rows A-C x 6 seats = 18
-  ...Array.from({ length: 18 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 6)); // A-C
-    const number = (i % 6) + 1;
-    return {
-      seat_id: `s-roomA-${row}${number}`,
-      room_id: "dd312cb1-8ef9-4bec-a3da-a618f32f60a5",
-      seat_row: row,
-      seat_number: number,
-      seat_type: row === "A" ? "VIP" : "normal",
-    };
-  }),
-  // Room r3c1-0001 rows A-C x 8 seats = 24
-  ...Array.from({ length: 24 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 8)); // A-C
-    const number = (i % 8) + 1;
-    return {
-      seat_id: `s-room2-${row}${number}`,
-      room_id: "r3c1-0001-1111-2222-333333333333",
-      seat_row: row,
-      seat_number: number,
-      seat_type: "normal",
-    };
-  }),
-  // Room r3c1-0002 small 12 seats
-  ...Array.from({ length: 12 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 4)); // A-C
-    const number = (i % 4) + 1;
-    return {
-      seat_id: `s-roomB-${row}${number}`,
-      room_id: "r3c1-0002-1111-2222-444444444444",
-      seat_row: row,
-      seat_number: number,
-      seat_type: "normal",
-    };
-  }),
-  // Room r3c1-0003 VIP 10 seats
-  ...Array.from({ length: 10 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 5)); // A-B
-    const number = (i % 5) + 1;
-    return {
-      seat_id: `s-roomVIP-${row}${number}`,
-      room_id: "r3c1-0003-1111-2222-555555555555",
-      seat_row: row,
-      seat_number: number,
-      seat_type: "vip",
-    };
-  }),
-  // Room r3c1-0004 12 seats
-  ...Array.from({ length: 12 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 6)); // A-B
-    const number = (i % 6) + 1;
-    return {
-      seat_id: `s-roomC-${row}${number}`,
-      room_id: "r3c1-0004-1111-2222-666666666666",
-      seat_row: row,
-      seat_number: number,
-      seat_type: "normal",
-    };
-  }),
-  // Room r3c1-0005 16 seats
-  ...Array.from({ length: 16 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 8)); // A-B
-    const number = (i % 8) + 1;
-    return {
-      seat_id: `s-room3-${row}${number}`,
-      room_id: "r3c1-0005-1111-2222-777777777777",
-      seat_row: row,
-      seat_number: number,
-      seat_type: "normal",
-    };
-  }),
-  // Room r3c1-0006 14 seats
-  ...Array.from({ length: 14 }).map((_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 7)); // A-B
-    const number = (i % 7) + 1;
-    return {
-      seat_id: `s-roomC2-${row}${number}`,
-      room_id: "r3c1-0006-1111-2222-888888888888",
-      seat_row: row,
-      seat_number: number,
-      seat_type: "normal",
-    };
-  }),
+  {
+    seat_id: 1,
+    room_id: 1,
+    seat_row: "A",
+    seat_number: 1,
+    seat_type: "Thường",
+  },
+  {
+    seat_id: 2,
+    room_id: 1,
+    seat_row: "A",
+    seat_number: 2,
+    seat_type: "Thường",
+  },
+  { seat_id: 3, room_id: 1, seat_row: "B", seat_number: 1, seat_type: "VIP" },
+  { seat_id: 4, room_id: 2, seat_row: "C", seat_number: 5, seat_type: "Đôi" },
+  {
+    seat_id: 5,
+    room_id: 3,
+    seat_row: "D",
+    seat_number: 10,
+    seat_type: "Thường",
+  },
 ];
 
-// Showtimes (link movies <-> rooms). Use ISO-like strings (no timezone)
+// Showtimes
 export const showtimes = [
-  // Avengers showtimes
   {
-    showtime_id: "fa199cc5-1a9d-4a26-a689-c4081e77095b",
-    movie_id: "f3c1d8b2-4b7f-4ab1-9a75-81c7a3c90410",
-    room_id: "b3fa70f8-6293-4b12-a41f-522b06df7d81",
-    start_time: "2025-01-20T19:00:00",
-    end_time: "2025-01-20T22:00:00",
-    price: 120000,
-  },
-  {
-    showtime_id: "st-2-avengers",
-    movie_id: "f3c1d8b2-4b7f-4ab1-9a75-81c7a3c90410",
-    room_id: "r3c1-0001-1111-2222-333333333333",
-    start_time: "2025-01-21T16:00:00",
-    end_time: "2025-01-21T19:00:00",
-    price: 100000,
-  },
-  // Joker
-  {
-    showtime_id: "4e2a9ecf-365e-4eaf-ac73-fcc6b63a4ae8",
-    movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
-    room_id: "dd312cb1-8ef9-4bec-a3da-a618f32f60a5",
-    start_time: "2025-01-21T20:00:00",
-    end_time: "2025-01-21T22:05:00",
-    price: 100000,
-  },
-  // Inception
-  {
-    showtime_id: "st-inception-1",
-    movie_id: "c1a2b3d4-e5f6-4123-9987-abcdef123456",
-    room_id: "r3c1-0001-1111-2222-333333333333",
-    start_time: "2025-02-10T18:30:00",
-    end_time: "2025-02-10T21:00:00",
+    showtime_id: 1,
+    movie_id: 1,
+    room_id: 1,
+    start_time: "2025-10-02T14:00:00",
+    end_time: "2025-10-02T17:00:00",
     price: 90000,
   },
   // Interstellar
@@ -433,54 +309,7 @@ export const users = [
     full_name: "Tran Thi B",
     email: "b@example.com",
     phone: "0912345678",
-    password_hash: "",
-    avatar_url: "",
     role: "customer",
-  },
-  {
-    user_id: "u-4-2222-3333-4444-666666666666",
-    full_name: "Le Van C",
-    email: "c@example.com",
-    phone: "0909876543",
-    password_hash: "",
-    avatar_url: "",
-    role: "customer",
-  },
-  {
-    user_id: "u-5-2222-3333-4444-777777777777",
-    full_name: "Pham Thi D",
-    email: "d@example.com",
-    phone: "0911223344",
-    password_hash: "",
-    avatar_url: "",
-    role: "staff",
-  },
-  {
-    user_id: "u-6-2222-3333-4444-888888888888",
-    full_name: "Tran Admin",
-    email: "tran.admin@example.com",
-    phone: "0904445556",
-    password_hash: "",
-    avatar_url: "",
-    role: "admin",
-  },
-  {
-    user_id: "u-7-2222-3333-4444-999999999999",
-    full_name: "Guest User",
-    email: "guest@example.com",
-    phone: "",
-    password_hash: "",
-    avatar_url: "",
-    role: "customer",
-  },
-  {
-    user_id: "u-8-2222-3333-4444-aaaaaaaaaaaa",
-    full_name: "Staff Two",
-    email: "staff2@example.com",
-    phone: "0906667778",
-    password_hash: "",
-    avatar_url: "",
-    role: "staff",
   },
 ];
 
@@ -631,93 +460,25 @@ export const payments = [
     payment_id: "pay-3-0001-1111-2222-000000000002",
     ticket_id: "t-3-0001-1111-2222-000000000002",
     amount: 90000,
-    payment_method: "credit_card",
-    payment_time: "2025-02-10T17:55:00",
-    status: 2, // failed/cancelled
+    payment_method: "Credit Card",
+    payment_time: "2025-10-01T12:05:00",
+    status: "success",
   },
   {
-    payment_id: "pay-4-0001-1111-2222-000000000003",
-    ticket_id: "t-4-0001-1111-2222-000000000003",
-    amount: 130000,
-    payment_method: "credit_card",
-    payment_time: "2025-02-13T19:00:00",
-    status: 1,
-  },
-  {
-    payment_id: "pay-5-0001-1111-2222-000000000004",
-    ticket_id: "t-5-0001-1111-2222-000000000004",
-    amount: 140000,
-    payment_method: "zalopay",
-    payment_time: "2025-02-15T17:40:00",
-    status: 1,
-  },
-  {
-    payment_id: "pay-6-0001-1111-2222-000000000005",
-    ticket_id: "t-6-0001-1111-2222-000000000005",
-    amount: 95000,
-    payment_method: "credit_card",
-    payment_time: "2025-02-16T13:40:00",
-    status: 1,
-  },
-  {
-    payment_id: "pay-7-0001-1111-2222-000000000006",
-    ticket_id: "t-7-0001-1111-2222-000000000006",
-    amount: 100000,
-    payment_method: "momo",
-    payment_time: null,
-    status: 0,
-  },
-  {
-    payment_id: "pay-8-0001-1111-2222-000000000007",
-    ticket_id: "t-8-0001-1111-2222-000000000007",
-    amount: 80000,
-    payment_method: "credit_card",
-    payment_time: "2025-02-17T14:50:00",
-    status: 1,
-  },
-  {
-    payment_id: "pay-9-0001-1111-2222-000000000008",
-    ticket_id: "t-9-0001-1111-2222-000000000008",
+    payment_id: 2,
+    ticket_id: 2,
     amount: 120000,
-    payment_method: "momo",
-    payment_time: "2025-02-17T18:10:00",
-    status: 1,
+    payment_method: "Momo",
+    payment_time: "2025-10-01T13:10:00",
+    status: "pending",
   },
   {
-    payment_id: "pay-10-0001-1111-2222-000000000009",
-    ticket_id: "t-10-0001-1111-2222-000000000009",
-    amount: 125000,
-    payment_method: "credit_card",
-    payment_time: "2025-02-14T18:45:00",
-    status: 1,
-  },
-];
-
-// Bills (link payment -> bill -> user)
-export const bills = [
-  {
-    bill_id: "deb6c4ca-054e-4af4-95ab-44e7931a4af0",
-    payment_id: "46a7175c-07c1-4f7a-a7b9-928f30a18d67",
-    user_id: "6c5e3525-894b-4e40-9da6-4e4cd27314f9",
-    total_amount: 120000,
-  },
-  {
-    bill_id: "bill-2-0001-1111-2222-000000000001",
-    payment_id: "pay-4-0001-1111-2222-000000000003",
-    user_id: "u-4-2222-3333-4444-666666666666",
-    total_amount: 130000,
-  },
-  {
-    bill_id: "bill-3-0001-1111-2222-000000000002",
-    payment_id: "pay-5-0001-1111-2222-000000000004",
-    user_id: "u-5-2222-3333-4444-777777777777",
-    total_amount: 140000,
-  },
-  {
-    bill_id: "bill-4-0001-1111-2222-000000000003",
-    payment_id: "pay-6-0001-1111-2222-000000000005",
-    user_id: "u-7-2222-3333-4444-999999999999",
-    total_amount: 95000,
+    payment_id: 3,
+    ticket_id: 3,
+    amount: 80000,
+    payment_method: "ZaloPay",
+    payment_time: "2025-10-02T09:15:00",
+    status: "failed",
   },
 ];
 
@@ -751,21 +512,379 @@ export const dummyCastsData = [
   {
     name: "Joaquin Phoenix",
     profile_path:
-      "https://image.tmdb.org/t/p/original/4M0ZJgZsXyMRQG3qF6h7U3A1j4p.jpg",
+      "https://image.tmdb.org/t/p/original/zmznPrQ9GSZwcOIUT0c3GyETwrP.jpg",
+  },
+  {
+    name: "Amara Okereke",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/nTSPtzWu6deZTJtWXHUpACVznY4.jpg",
+  },
+  {
+    name: "Fraser James",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/mGAPQG2OKTgdKFkp9YpvCSqcbgY.jpg",
+  },
+  {
+    name: "Deirdre Mullins",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/lJm89neuiVlYISEqNpGZA5kTAnP.jpg",
+  },
+  {
+    name: "Sebastian Stankiewicz",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/hLN0Ca09KwQOFLZLPIEzgTIbqqg.jpg",
+  },
+  {
+    name: "Tue Lunding",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/qY4W0zfGBYzlCyCC0QDJS1Muoa0.jpg",
+  },
+  {
+    name: "Jacek Dzisiewicz",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/6Ksb8ANhhoWWGnlM6O1qrySd7e1.jpg",
+  },
+  {
+    name: "Ian Hanmore",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/yhI4MK5atavKBD9wiJtaO1say1p.jpg",
+  },
+  {
+    name: "Eveline Hall",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/uPq4xUPiJIMW5rXF9AT0GrRqgJY.jpg",
+  },
+  {
+    name: "Kamila Klamut",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/usWnHCzbADijULREZYSJ0qfM00y.jpg",
+  },
+  {
+    name: "Caoilinn Springall",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/uZNtbPHowlBYo74U1qlTaRlrdiY.jpg",
+  },
+  {
+    name: "Jan Kowalewski",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/snk6JiXOOoRjPtHU5VMoy6qbd32.jpg",
+  },
+  {
+    name: "Pawel Wysocki",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/zmznPrQ9GSZwcOIUT0c3GyETwrP.jpg",
+  },
+  {
+    name: "Simon Lööf",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/cbZrB8crWlLEDjVUoak8Liak6s.jpg",
+  },
+  {
+    name: "Tomasz Cymerman",
+    profile_path:
+      "https://image.tmdb.org/t/p/original/nTSPtzWu6deZTJtWXHUpACVznY4.jpg",
   },
 ];
 
-// handy export all
-export default {
-  movies,
-  theaters,
-  rooms,
-  seats,
-  showtimes,
-  users,
-  tickets,
-  payments,
-  bills,
-  dummyTrailers,
-  dummyCastsData,
+export const dummyShowsData = [
+  {
+    movie_id: "f3c1d8b2-4b7f-4ab1-9a75-81c7a3c90410",
+    id: 324544,
+    title: "In the Lost Lands",
+    description:
+      "A queen sends the powerful and feared sorceress Gray Alys to the ghostly wilderness of the Lost Lands in search of a magical power, where she and her guide, the drifter Boyce, must outwit and outfight both man and demon.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/op3qmNhvwEvyT7UFyPbIfQmKriB.jpg",
+    genres: [
+      { id: 28, name: "Action" },
+      { id: 14, name: "Fantasy" },
+      { id: 12, name: "Adventure" },
+    ],
+    genre: "hành động",
+    director: "123",
+    cast: "hehe",
+    casts: dummyCastsData,
+    release_date: "2025-02-27",
+    original_language: "en",
+    tagline: "She seeks the power to free her people.",
+    vote_average: 6.4,
+    vote_count: 15000,
+    runtime: 102,
+    duration: 105,
+  },
+  {
+    movie_id: "e84db94e-51cf-41ad-b76d-6e77e42f0f31",
+    id: 1232546,
+    title: "Until Dawn",
+    description:
+      "One year after her sister Melanie mysteriously disappeared, Clover and her friends head into the remote valley where she vanished in search of answers. Exploring an abandoned visitor center, they find themselves stalked by a masked killer and horrifically murdered one by one...only to wake up and find themselves back at the beginning of the same evening.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/juA4IWO52Fecx8lhAsxmDgy3M3.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/icFWIk1KfkWLZnugZAJEDauNZ94.jpg",
+    genres: [
+      { id: 27, name: "Horror" },
+      { id: 9648, name: "Mystery" },
+    ],
+    casts: dummyCastsData,
+    release_date: "2025-04-23",
+    original_language: "en",
+    tagline: "Every night a different nightmare.",
+    vote_average: 6.405,
+    vote_count: 18000,
+    runtime: 103,
+  },
+  {
+    movie_id: "552524",
+    id: 552524,
+    title: "Lilo & Stitch",
+    description:
+      "The wildly funny and touching story of a lonely Hawaiian girl and the fugitive alien who helps to mend her broken family.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/mKKqV23MQ0uakJS8OCE2TfV5jNS.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg",
+    genres: [
+      { id: 10751, name: "Family" },
+      { id: 35, name: "Comedy" },
+      { id: 878, name: "Science Fiction" },
+    ],
+    casts: dummyCastsData,
+    release_date: "2025-05-17",
+    original_language: "en",
+    tagline: "Hold on to your coconuts.",
+    vote_average: 7.117,
+    vote_count: 27500,
+    runtime: 108,
+  },
+  {
+    movie_id: "668489",
+    id: 668489,
+    title: "Havoc",
+    description:
+      "When a drug heist swerves lethally out of control, a jaded cop fights his way through a corrupt city's criminal underworld to save a politician's son.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/ubP2OsF3GlfqYPvXyLw9d78djGX.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/65MVgDa6YjSdqzh7YOA04mYkioo.jpg",
+    genres: [
+      { id: 28, name: "Action" },
+      { id: 80, name: "Crime" },
+      { id: 53, name: "Thriller" },
+    ],
+    casts: dummyCastsData,
+    release_date: "2025-04-25",
+    original_language: "en",
+    tagline: "No law. Only disorder.",
+    vote_average: 6.537,
+    vote_count: 35960,
+    runtime: 107,
+  },
+  {
+    movie_id: "950387",
+    id: 950387,
+    title: "A Minecraft Movie",
+    description:
+      "Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal into the Overworld: a bizarre, cubic wonderland that thrives on imagination. To get back home, they'll have to master this world while embarking on a magical quest with an unexpected, expert crafter, Steve.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg",
+    genres: [
+      { id: 10751, name: "Family" },
+      { id: 35, name: "Comedy" },
+      { id: 12, name: "Adventure" },
+      { id: 14, name: "Fantasy" },
+    ],
+    casts: dummyCastsData,
+    release_date: "2025-03-31",
+    original_language: "en",
+    tagline: "Be there and be square.",
+    vote_average: 6.516,
+    vote_count: 15225,
+    runtime: 101,
+  },
+  {
+    movie_id: "575265",
+    id: 575265,
+    title: "Mission: Impossible - The Final Reckoning",
+    description:
+      "Ethan Hunt and team continue their search for the terrifying AI known as the Entity — which has infiltrated intelligence networks all over the globe — with the world's governments and a mysterious ghost from Hunt's past on their trail. Joined by new allies and armed with the means to shut the Entity down for good, Hunt is in a race against time to prevent the world as we know it from changing forever.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/z53D72EAOxGRqdr7KXXWp9dJiDe.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/1p5aI299YBnqrEEvVGJERk2MXXb.jpg",
+    genres: [
+      { id: 28, name: "Action" },
+      { id: 12, name: "Adventure" },
+      { id: 53, name: "Thriller" },
+    ],
+    casts: dummyCastsData,
+    release_date: "2025-05-17",
+    original_language: "en",
+    tagline: "Our lives are the sum of our choices.",
+    vote_average: 7.042,
+    vote_count: 19885,
+    runtime: 170,
+  },
+  {
+    movie_id: "986056",
+    id: 986056,
+    title: "Thunderbolts*",
+    description:
+      "After finding themselves ensnared in a death trap, seven disillusioned castoffs must embark on a dangerous mission that will force them to confront the darkest corners of their pasts.",
+    poster_url:
+      "https://image.tmdb.org/t/p/original/m9EtP1Yrzv6v7dMaC9mRaGhd1um.jpg",
+    backdrop_path:
+      "https://image.tmdb.org/t/p/original/rthMuZfFv4fqEU4JVbgSW9wQ8rs.jpg",
+    genres: [
+      { id: 28, name: "Action" },
+      { id: 878, name: "Science Fiction" },
+      { id: 12, name: "Adventure" },
+    ],
+    casts: dummyCastsData,
+    release_date: "2025-12-30",
+    original_language: "en",
+    tagline: "Everyone deserves a second shot.",
+    vote_average: 7.443,
+    vote_count: 23569,
+    runtime: 127,
+  },
+];
+
+export const dummyDateTimeData = {
+  "2025-07-24": [
+    { time: "2025-07-24T01:00:00.000Z", showId: "68395b407f6329be2bb45bd1" },
+    { time: "2025-07-24T03:00:00.000Z", showId: "68395b407f6329be2bb45bd2" },
+    { time: "2025-07-24T05:00:00.000Z", showId: "68395b407f6329be2bb45bd3" },
+  ],
+  "2025-07-25": [
+    { time: "2025-07-25T01:00:00.000Z", showId: "68395b407f6329be2bb45bd4" },
+    { time: "2025-07-25T03:00:00.000Z", showId: "68395b407f6329be2bb45bd5" },
+    { time: "2025-07-25T05:00:00.000Z", showId: "68395b407f6329be2bb45bd6" },
+  ],
+  "2025-07-26": [
+    { time: "2025-07-26T01:00:00.000Z", showId: "68395b407f6329be2bb45bd7" },
+    { time: "2025-07-26T03:00:00.000Z", showId: "68395b407f6329be2bb45bd8" },
+    { time: "2025-07-26T05:00:00.000Z", showId: "68395b407f6329be2bb45bd9" },
+  ],
+  "2025-07-27": [
+    { time: "2025-07-27T01:00:00.000Z", showId: "68395b407f6329be2bb45bda" },
+    { time: "2025-07-27T03:00:00.000Z", showId: "68395b407f6329be2bb45bdb" },
+    { time: "2025-07-27T05:00:00.000Z", showId: "68395b407f6329be2bb45bdc" },
+  ],
 };
+
+export const dummyDashboardData = {
+  totalBookings: 14,
+  totalRevenue: 1517,
+  totalUser: 5,
+  activeShows: [
+    {
+      _id: "68352363e96d99513e4221a4",
+      movie: dummyShowsData[0],
+      showDateTime: "2025-06-30T02:30:00.000Z",
+      showPrice: "45,000 ",
+      occupiedSeats: {
+        A1: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        B1: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        C1: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+      },
+    },
+    {
+      _id: "6835238fe96d99513e4221a8",
+      movie: dummyShowsData[1],
+      showDateTime: "2025-06-30T15:30:00.000Z",
+      showPrice: "50,000 ",
+      occupiedSeats: {},
+    },
+    {
+      _id: "6835238fe96d99513e4221a9",
+      movie: dummyShowsData[2],
+      showDateTime: "2025-06-30T03:30:00.000Z",
+      showPrice: 81,
+      occupiedSeats: {},
+    },
+    {
+      _id: "6835238fe96d99513e4221aa",
+      movie: dummyShowsData[3],
+      showDateTime: "2025-07-15T16:30:00.000Z",
+      showPrice: 81,
+      occupiedSeats: {
+        A1: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        A2: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        A3: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        A4: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+      },
+    },
+    {
+      _id: "683682072b5989c29fc6dc0d",
+      movie: dummyShowsData[4],
+      showDateTime: "2025-06-05T15:30:00.000Z",
+      showPrice: 49,
+      occupiedSeats: {
+        A1: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        A2: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        A3: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        B1: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        B2: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+        B3: "user_2xO4XPCgWWwWq9EHuQxc5UWqIok",
+      },
+      __v: 0,
+    },
+    {
+      _id: "68380044686d454f2116b39a",
+      movie: dummyShowsData[5],
+      showDateTime: "2025-06-20T16:00:00.000Z",
+      showPrice: 79,
+      occupiedSeats: {
+        A1: "user_2xl7eCSUHddibk5lRxfOtw9RMwX",
+        A2: "user_2xl7eCSUHddibk5lRxfOtw9RMwX",
+      },
+    },
+  ],
+};
+
+export const dummyBookingData = [
+  {
+    _id: "68396334fb83252d82e17295",
+    user: { name: "GreatStack" },
+    show: {
+      _id: "68352363e96d99513e4221a4",
+      movie: dummyShowsData[0],
+      showDateTime: "2025-06-30T02:30:00.000Z",
+      showPrice: 59,
+    },
+    amount: 98,
+    bookedSeats: ["D1", "D2"],
+    isPaid: false,
+  },
+  {
+    _id: "68396334fb83252d82e17295",
+    user: { name: "GreatStack" },
+    show: {
+      _id: "68352363e96d99513e4221a4",
+      movie: dummyShowsData[0],
+      showDateTime: "2025-06-30T02:30:00.000Z",
+      showPrice: 59,
+    },
+    amount: 49,
+    bookedSeats: ["A1"],
+    isPaid: true,
+  },
+  {
+    _id: "68396334fb83252d82e17295",
+    user: { name: "GreatStack" },
+    show: {
+      _id: "68352363e96d99513e4221a4",
+      movie: dummyShowsData[0],
+      showDateTime: "2025-06-30T02:30:00.000Z",
+      showPrice: 59,
+    },
+    amount: 147,
+    bookedSeats: ["A1", "A2", "A3"],
+    isPaid: true,
+  },
+];
