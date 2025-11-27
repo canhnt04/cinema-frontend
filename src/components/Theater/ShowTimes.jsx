@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { useBooking } from "../../hooks/useBooking";
+import { formatShortScale } from "../../helper/formatPrice";
 
 const ShowTimes = ({ showtimes = [] }) => {
   const { selectedShowtime, setSelectedShowtime } = useBooking();
@@ -30,6 +31,7 @@ const ShowTimes = ({ showtimes = [] }) => {
             }`}
           >
             {formatTime(st.startTime)}
+            <p className="text-xs">{formatShortScale(st.price)}</p>
           </button>
         </div>
       ))}

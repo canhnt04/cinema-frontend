@@ -17,7 +17,13 @@ const MovieDetails = () => {
   const [show, setShow] = useState(null);
   const [movieShowtimes, setMovieShowtimes] = useState([]);
 
-  const { selectedShowtime, setSelectedShowtime, selectedDate } = useBooking();
+  const {
+    selectedShowtime,
+    setSelectedShowtime,
+    selectedDate,
+    setSelectedMoiveDetail,
+    resetBooking,
+  } = useBooking();
 
   const selectedMovieId = id;
 
@@ -42,6 +48,7 @@ const MovieDetails = () => {
       const data = await getMovieById(selectedMovieId);
       if (data) {
         setShow(data.result);
+        setSelectedMoiveDetail(data.result);
       }
     };
     const loadShowtimes = async () => {
@@ -53,6 +60,7 @@ const MovieDetails = () => {
 
     loadMovieInfo();
     loadShowtimes();
+    resetBooking();
   }, [id]);
 
   return show && movieShowtimes?.length > 0 ? (
@@ -60,7 +68,7 @@ const MovieDetails = () => {
       <MovieInfo movie={show} />
       <DateSelect dates={uniqueDates} />
       {selectedDate && <TheaterList movieId={selectedMovieId} />}
-      {selectedShowtime && <SelectTicket />}
+      {/* {selectedShowtime && <SelectTicket />} */}
       {selectedShowtime && (
         <SeatLayout showtimeId={selectedShowtime?.showtimeId} />
       )}

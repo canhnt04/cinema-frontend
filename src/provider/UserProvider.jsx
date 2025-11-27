@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import { useAuth } from "../hooks/useAuth";
+import axiosClient from "../config/axios";
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const { token } = useAuth();
+  const [userInfo, setUserInfo] = useState(null);
+
+  const token = localStorage.getItem("access_token");
+
+  const fetchMyInfo = async () => {
+    console.log("API get info called.");
+
+    try {
+      if (!token) return;
+      const res = await axiosClient.get("/user/me");
+      if (res) {
+        const user = res.result;
+        setUserInfo(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (token) {
-      const fakeUser = {
-        name: "Cảnh Nguyễn",
-        avatar: "https://www.rophim.li/images/avatars/pack4/16.jpg",
-      };
-      setUser(fakeUser);
-    } else {
-      setUser(null);
-    }
+    fetchMyInfo();
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ userInfo }}>{children}</UserContext.Provider>
   );
 };

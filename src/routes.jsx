@@ -15,6 +15,7 @@ import ListUsers from "./pages/Admin/ListUsers";
 import BookingHistory from "./pages/BookingHistory";
 import SearchPage from "./pages/SearchPage";
 import Profile from "./pages/Profile";
+import BookingResultDisplay from "./components/Booking/BookingResultDisplay";
 
 const routes = [
   {
@@ -41,6 +42,11 @@ const routes = [
         key: "my-bookings",
         path: "/my-bookings",
         element: <MyBookings />,
+      },
+      {
+        key: "booking/result",
+        path: "/booking/result",
+        element: <BookingResultDisplay />,
       },
       {
         key: "booking-history",

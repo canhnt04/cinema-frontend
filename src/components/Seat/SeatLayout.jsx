@@ -9,17 +9,11 @@ import axiosClient from "../../config/axios";
 
 const SeatLayout = ({ showtimeId }) => {
   const [seats, setSeats] = useState([]);
-  const { selectedTicket, selectedSeats, setSelectedSeats } = useBooking();
+  const { selectedSeats, setSelectedSeats } = useBooking();
   const navigate = useNavigate();
 
   // Total ticket from SelectTicket
-  const totalTickets =
-    Array.isArray(selectedTicket) && selectedTicket.length > 0
-      ? selectedTicket.reduce(
-          (acc, current) => acc + (current.quantity ?? 0),
-          0
-        )
-      : 0;
+  const totalTickets = 10;
 
   // Group seats by row
   const groupSeatsByRow = seats.reduce((acc, seat) => {
@@ -58,10 +52,13 @@ const SeatLayout = ({ showtimeId }) => {
   }, [totalTickets, showtimeId]);
 
   const handleSeatClick = (seat) => {
-    const seatId = seat.seatId;
-
+    // ... (Các kiểm tra ban đầu)
     if (seat.isBooked === 1) {
       showToast("Ghế đã được đặt!");
+      return;
+    }
+    if (seat.isBooked === 2) {
+      showToast("Ghế đang được giữ!");
       return;
     }
 
@@ -70,8 +67,15 @@ const SeatLayout = ({ showtimeId }) => {
       return;
     }
 
-    if (selectedSeats.includes(seatId)) {
-      return setSelectedSeats((prev) => prev.filter((id) => id !== seatId));
+    // Kiểm tra xem ghế đã được chọn chưa bằng seatId
+    const isAlreadySelected = selectedSeats.some(
+      (s) => s.seatId === seat.seatId
+    );
+
+    if (isAlreadySelected) {
+      return setSelectedSeats((prev) =>
+        prev.filter((s) => s.seatId !== seat.seatId)
+      );
     }
 
     if (selectedSeats.length >= totalTickets) {
@@ -79,7 +83,7 @@ const SeatLayout = ({ showtimeId }) => {
       return;
     }
 
-    setSelectedSeats([...selectedSeats, seatId]);
+    setSelectedSeats([...selectedSeats, seat]);
   };
   // Styling classes
   const baseSeatStyle =
@@ -87,16 +91,18 @@ const SeatLayout = ({ showtimeId }) => {
 
   const seatStyles = {
     NORMAL: "bg-tranparent hover:bg-primary",
-    BOOKED: "bg-gray-500 text-gray-200 border-none cursor-not-allowed",
+    BOOKED: "bg-gray-700 text-gray-700 border-none cursor-not-allowed",
+    HOLD: "bg-yellow-800 text-gray-200 border-none cursor-not-allowed",
     SELECTED: "bg-primary text-white",
   };
 
   const renderSeats = (seat) => {
-    const isSelected = selectedSeats.includes(seat.seatId);
+    const isSelected = selectedSeats.some((s) => s.seatId === seat.seatId);
 
-    let style = seatStyles[seat.seatType?.toUpperCase()] || seatStyles.NORMAL;
+    let style = seatStyles.NORMAL;
 
     if (seat.isBooked === 1) style = seatStyles.BOOKED;
+    if (seat.isBooked === 2) style = seatStyles.HOLD;
     if (isSelected) style = seatStyles.SELECTED;
 
     return (
