@@ -1,44 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./../ui/Button";
 import { assets } from "./../../assets/assets";
-import { useAuth } from "../../hooks/useAuth";
-import { useUser } from "./../../hooks/useUser";
-import useNavigateBack from "../../hooks/useNavigateBack";
 import { showToast } from "./../../helper/cooldownToast";
+import { useAuth } from "./../../hooks/useAuth";
+import FullPageSpinner from "./../ui/FullPageSpinner";
+import { useNavigate } from "react-router-dom";
 
 const SignInModal = ({ switchToSignUp, onClose }) => {
-  const { login } = useAuth();
-  const { setUserInfo } = useUser();
-  const [loading, setLoading] = useState(true);
-
+  const { login, user } = useAuth();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
-  const navigateBack = useNavigateBack();
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const sucess = login(email, password);
-    if (sucess) {
-      showToast("Đăng nhập thành công!", { type: "success" });
-      setTimeout(() => navigateBack(), 300);
-    } else {
-      showToast("Error");
+    if (email.trim() === "" || password.trim() === "") {
+      showToast("Vui lòng nhập thông tin đầy đủ!");
+      setLoading(false);
+      return;
     }
-    // try {
-    //   const res = await loginService(email, password);
-    //   login(res.token);
-    //   setUserInfo(res.user);
-    //   onClose();
-    // } catch (err) {
-    //   setError(err);
-    // } finally {
-    //   setLoading(true);
-    // }
+
+    try {
+      const res = await login(email, password);
+
+      if (res?.code === 0) {
+        showToast("Đăng nhập thành công!", { type: "success", duration: 2000 });
+      }
+    } catch (error) {
+      if (error?.code === 1003) {
+        showToast("Tài khoản không tồn tại! Vui lòng đăng ký.");
+      } else if (error?.code === 1006) {
+        showToast("Mật khẩu không hợp lệ!");
+      } else {
+        showToast("Có lỗi xảy ra, vui lòng thử lại!");
+        console.log(error);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
+  useEffect(() => {
+    if (user) {
+      if (user?.role === "ADMIN") navigate("/admin", { replace: true });
+      else if (user?.role === "CUSTOMER") navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
+  return !loading ? (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div className="w-full max-w-96 sm:w-[400px] text-center border border-zinc-300/60 rounded-2xl px-8 bg-white">
         <h1 className="text-zinc-900 text-3xl font-semibold mt-10">Login</h1>
@@ -46,9 +59,9 @@ const SignInModal = ({ switchToSignUp, onClose }) => {
           Please sign in to continue
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
           <input
-            type="email"
+            type="text"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -120,6 +133,8 @@ const SignInModal = ({ switchToSignUp, onClose }) => {
         </button>
       </div>
     </div>
+  ) : (
+    <FullPageSpinner />
   );
 };
 

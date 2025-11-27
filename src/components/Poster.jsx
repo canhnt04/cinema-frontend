@@ -30,7 +30,7 @@ export default function Poster() {
         <Button
           variant="primary"
           className="flex items-center gap-1 px-6 py-3 text-sm active:scale-95"
-          onClick={() => navigate("/movies")}
+          onClick={() => navigate("/movies/now-showing")}
         >
           Khám phá ngay
           <ArrowRight className="w-5 h-5 hover:translate-x-0.5" />

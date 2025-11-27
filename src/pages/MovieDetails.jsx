@@ -15,7 +15,7 @@ const MovieDetails = () => {
   const [show, setShow] = useState(null);
   const { selectedShowtime } = useBooking();
 
-  const movieShowtimes = showtimes.filter((s) => s.movie_id === Number(id));
+  const movieShowtimes = showtimes.filter((s) => s.movie_id === id);
 
   const uniqueDates = [
     ...new Set(
@@ -24,11 +24,16 @@ const MovieDetails = () => {
   ];
 
   useEffect(() => {
-    const show = movies.find((show) => show.movie_id === Number(id));
-    setShow({
-      movie: show,
-      dateTime: show.duration,
-    });
+    const show = movies.find((show) => show.movie_id === id);
+
+    if (show) {
+      setShow({
+        movie: show,
+        dateTime: show.duration,
+      });
+    } else {
+      setShow(null);
+    }
   }, [id]);
 
   return show ? (

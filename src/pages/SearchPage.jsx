@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { dummyShowsData } from "../assets/mockData";
+import { movies } from "../assets/mockData";
 import MovieCard from "./../components/MovieCard";
 import BlurCircle from "./../components/BlurCircle";
 
@@ -12,16 +12,16 @@ const SearchPage = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    const filtered = dummyShowsData.filter((movie) =>
+    const filtered = movies.filter((movie) =>
       movie.title.toLowerCase().includes(keyword)
     );
     setResults(filtered);
   }, [keyword]);
 
   return (
-    <div className="relative pt-30 px-6 md:px-16 lg:px-24 xl:px-44 overflow-hidden select-none">
-      <BlurCircle top="50px" left="20px" />
+    <div className="relative pt-30 px-6 md:px-16 lg:px-24 xl:px-44 select-none">
       <BlurCircle top="100px" right="30px" />
+      <BlurCircle top="50px" left="20px" />
       {results.length ? (
         <div className="flex flex-wrap max-sm:justify-center gap-8 mt-8">
           {results.map((movie) => (

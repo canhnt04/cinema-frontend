@@ -2,19 +2,34 @@ import {
   CalendarIcon,
   ChartLineIcon,
   CircleDollarSignIcon,
-  FilmIcon,
   PlayCircleIcon,
   TvMinimalPlayIcon,
   UsersIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import BlurCircle from "./../../components/BlurCircle";
-import { dummyDashboardData, dummyShowsData } from "../../assets/mockData";
-import { timeFormatReleaseDate } from "../../helper/timeFormat";
+import {
+  timeFormatDuration,
+  timeFormatReleaseDate,
+} from "../../helper/timeFormat";
 import FullPageSpinner from "../../components/ui/FullPageSpinner";
+import { useAuth } from "../../hooks/useAuth";
+import { getMoviesService } from "../../services/MoviesService";
+import { getUsersService } from "../../services/UserService";
+import { getBookingsService } from "../../services/BookingService";
+import { useNavigate } from "react-router-dom";
+import { getRevenueService } from "../../services/revenueService";
 
 const Dashboard = () => {
-  const currency = import.meta.env.VITE_CURRENCY;
+  const { loading } = useAuth();
+  const [movies, setMovies] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [shows, setShows] = useState([]);
+  const [bookings, setBookings] = useState([]);
+
+  const [dataLoading, setDataLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState({
     totalBookings: 0,
@@ -23,53 +38,78 @@ const Dashboard = () => {
     totalUser: 0,
   });
 
-  const [loading, setLoading] = useState(true);
+  if (loading) return <FullPageSpinner />;
 
   const dashboardCards = [
     {
       title: "Số vé đã bán",
-      value: dashboardData.totalBookings || "0",
+      value: dashboardData.totalBookings,
       icon: ChartLineIcon,
     },
     {
-      title: "Doanh thu",
-      value: dashboardData.totalRevenue + currency || "0",
+      title: "Doanh thu tháng vừa qua",
+      value: dashboardData.totalRevenue,
       icon: CircleDollarSignIcon,
     },
     {
-      title: "Phim đang chiếu",
-      value: dashboardData.activeShows.length || "0",
+      title: "Số lượng phim đang chiếu",
+      value: dashboardData.activeShows.length,
       icon: PlayCircleIcon,
     },
     {
-      title: "Người dùng",
-      value: dashboardData.totalUser || "0",
+      title: "Số lượng người dùng",
+      value: dashboardData.totalUser,
       icon: UsersIcon,
     },
   ];
 
-  const fetchDashboardData = async () => {
-    setDashboardData(dummyDashboardData);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const revenueRes = await getRevenueService();
+        const bookingRes = await getBookingsService();
+        const moviesRes = await getMoviesService();
+        const userRes = await getUsersService();
+
+        const revenues = revenueRes?.result?.totalRevenue || 0;
+        const bookings = bookingRes?.result || [];
+        const movies = moviesRes?.result || [];
+        const users = userRes?.result || [];
+
+        setBookings(bookings);
+        setMovies(movies);
+        setUsers(users);
+
+        setDashboardData({
+          totalRevenue: revenues,
+          totalBookings: 50,
+          activeShows: movies,
+          totalUser: users.length,
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setDataLoading(false);
+      }
+    };
+
     fetchDashboardData();
   }, []);
 
-  return !loading ? (
+  return !dataLoading ? (
     <>
       <div className="relative flex flex-wrap gap-4 mt-4">
         <BlurCircle top="-100px" left="0" />
+        <BlurCircle top="-100px" right="50px" />
         <div className="flex flex-wrap gap-4 w-full">
           {dashboardCards.map((card, index) => (
             <div
               key={index}
-              className="flex items-center justify-between px-4 py-3 bg-primary/10 border border-primary/20 rounded-md max-w-50 w-full"
+              className="flex items-center justify-between px-4 py-3 bg-primary/10 border border-primary/20 rounded-md max-w-60 w-full"
             >
               <div className="">
                 <h1 className="text-sm">{card.title}</h1>
-                <p className="text-xl font-medium mt-1">{card.value}</p>
+                <p className="text-base font-medium mt-1">{card.value}</p>
               </div>
               <card.icon className="w-6 h-6" />
             </div>
@@ -80,32 +120,34 @@ const Dashboard = () => {
       <p className="mt-10 text-lg font-medium">Phim đang chiếu</p>
       <div className="relative flex flex-wrap gap-6 mt-4 max-w-5xl">
         <BlurCircle top="100px" left="-10%" />
-        {dummyShowsData.map((show) => {
+        {movies.map((show) => {
           return (
             <div
-              key={show.movie_id}
-              className="w-55 rounded-lg overflow-hidden h-full pb-3 bg-primary/10 border border-primary/20 hover:-translate-y-1 transition duration-300"
+              key={show.movieId}
+              className="flex flex-col justify-between p-3 bg-gray-800 rounded-2xl hover:-translate-y-1 transition duration-300 w-66 select-none cursor-pointer"
             >
               <img
-                src={show.poster_url}
-                alt=""
+                onClick={() => {
+                  navigate(`/admin/list-movies`);
+                  scrollTo(0, 0);
+                }}
+                src={show.posterUrl}
                 className="h-60 w-full object-cover"
               />
-              <p className="flex items-center px-1 gap-2 mt-2">
-                <FilmIcon className="w-4 h-4" />
-                <span className="font-medium truncate">{show.title}</span>
+              <p className="font-semibold mt-2 uppercase text-balance text-primary">
+                {show.title}
               </p>
-              {/* Ngày khởi chiếu */}
-              <p className="flex items-center px-1 gap-2 mt-2">
-                <CalendarIcon className="w-4 h-4" />
-                <span className="">
-                  {timeFormatReleaseDate(show.release_date)}
+              <p className="flex items-center gap-2 mt-1.5">
+                <CalendarIcon className="w-4 h-4 text-gray-200" />
+                <span className="text-sm text-gray-200">
+                  {timeFormatReleaseDate(show.releaseDate)}
                 </span>
               </p>
-              {/* Số lượng suất chiếu */}
-              <p className="flex items-center px-1 gap-2 mt-2">
-                <TvMinimalPlayIcon className="w-4 h-4" />
-                <span className="text-sm ">{"123"}</span>
+              <p className="flex items-center gap-2 mt-1.5">
+                <TvMinimalPlayIcon className="w-4 h-4 text-gray-200" />
+                <span className="text-sm text-gray-200">
+                  {timeFormatDuration(show.duration)}
+                </span>
               </p>
             </div>
           );

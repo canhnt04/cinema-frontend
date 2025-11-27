@@ -12,7 +12,7 @@ export default function Button({
     "rounded-full font-semibold transition-colors duration-150 flex items-center justify-center cursor-pointer";
   const variants = {
     primary: "bg-primary hover:bg-primary-dull text-white",
-    secondary: "bg-gray-400 hover:bg-gray-500 text-white",
+    secondary: "bg-gray-300 hover:bg-gray-400 text-black",
     outline: "border border-gray-400 hover:bg-gray-100 text-gray-900",
   };
 

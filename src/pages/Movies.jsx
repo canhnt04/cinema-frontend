@@ -1,15 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import BlurCircle from "../components/BlurCircle";
 import MovieCard from "../components/MovieCard";
-import { dummyShowsData, movies } from "./../assets/mockData";
+import { movies } from "./../assets/mockData";
 import { filterComingSoon, filterNowShowing } from "../helper/MoviesFilter";
 
 const Movies = () => {
   const navigate = useNavigate();
   const { type } = useParams();
 
-  const nowShowing = filterNowShowing(dummyShowsData);
-  const comingSoon = filterComingSoon(dummyShowsData);
+  const nowShowing = filterNowShowing(movies);
+  const comingSoon = filterComingSoon(movies);
 
   const filteredMovies = type === "coming-soon" ? comingSoon : nowShowing;
 

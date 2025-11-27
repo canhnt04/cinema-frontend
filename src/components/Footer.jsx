@@ -42,11 +42,11 @@ const Footer = () => {
             <div>
               <div className="flex items-center gap-2">
                 <PhoneIcon className="w-4.5 h-4.5" />
-                <p>0793536518</p>
+                <p>0123456789</p>
               </div>
               <div className="flex items-center gap-2 mt-2">
                 <MailIcon className="w-4.5 h-4.5" />
-                <p>canh040904@gmail.com</p>
+                <p>teamBCP@gmail.com</p>
               </div>
               {/* <div className="flex items-center gap-2 mt-2">
                 <MapPinIcon className="w-4.5 h-4.5 flex-shrink-0" />

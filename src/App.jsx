@@ -1,7 +1,13 @@
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./PrivateRoute";
 import routes from "./routes";
 import { AuthProvider } from "./provider/AuthProvider";
+
+const NotFound = () => {
+  window.location.href = "http://localhost:5000";
+  return null;
+};
 
 export default function App() {
   return (
@@ -18,12 +24,25 @@ export default function App() {
       <AuthProvider>
         <Routes>
           {routes.map((group, index) => (
-            <Route key={index} path={group.path} element={group.layout}>
+            <Route key={index} element={group.layout}>
               {group.pages.map((page) => (
-                <Route key={page.key} path={page.path} element={page.element} />
+                <Route
+                  key={page.key}
+                  path={page.path}
+                  element={
+                    <PrivateRoute
+                      requireAuth={page.requireAuth}
+                      roles={page.roles}
+                      guestOnly={page.guestOnly}
+                    >
+                      {page.element}
+                    </PrivateRoute>
+                  }
+                />
               ))}
             </Route>
           ))}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { dummyShowsData } from "../assets/mockData";
+import { bills } from "../assets/mockData";
 import BlurCircle from "../components/BlurCircle";
 import FullPageSpinner from "../components/ui/FullPageSpinner";
 import BookingCard from "../components/BookingCard";
@@ -21,7 +21,7 @@ const BookingHistory = () => {
       <BlurCircle top="100px" right="50px" />
       <BlurCircle bottom="0px" left="600px" />
       <h2 className="text-2xl font-semibold mb-4">LỊCH SỬ MUA VÉ</h2>
-      {dummyShowsData.map((booking) => (
+      {bills.map((booking) => (
         <BookingCard key={booking.movie_id} booking={booking} />
       ))}
     </div>

@@ -1,31 +1,64 @@
 import { XIcon } from "lucide-react";
-import Overlay from "../../../components/ui/Overlay";
-import { useState } from "react";
+import Overlay from "../../../../components/ui/Overlay";
+import { useRef, useState } from "react";
+import Button from "../../../../components/ui/Button";
 
-const EditMovieModal = ({ movie, onSave, onClose }) => {
+const AddMovieModal = ({ onAdd, onClose }) => {
   const [formData, setFormData] = useState({
-    title: movie.title,
-    genre: movie.genre,
-    director: movie.director,
-    cast: movie.cast,
-    duration: movie.duration,
-    description: movie.description,
-    release_date: movie.release_date,
-    poster_url: movie.poster_url,
+    title: "",
+    genre: "",
+    director: "",
+    cast: "",
+    duration: "",
+    description: "",
+    release_date: "",
+    poster_url: "",
   });
+  const descriptionRef = useRef(null);
+
+  const handleDescriptionChange = (e) => {
+    setFormData((prev) => ({ ...prev, description: e.target.value }));
+    descriptionRef.current.style.height = "auto";
+    descriptionRef.current.style.height =
+      descriptionRef.current.scrollHeight + "px";
+  };
+
+  const handleDescriptionBlur = () => {
+    descriptionRef.current.style.height = "";
+  };
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSave = () => {
-    onSave({ ...movie, ...formData });
-    onClose();
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const previewUrl = URL.createObjectURL(file);
+    setFormData((prev) => ({ ...prev, poster_url: previewUrl }));
+
+    // Upload lên Cloudinary
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "cinema-web");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dvthcg6hz/image/upload",
+      { method: "POST", body: data }
+    );
+    const fileData = await res.json();
+    setFormData((prev) => ({ ...prev, poster_url: fileData.secure_url }));
+  };
+
+  const handleAdd = () => {
+    onAdd(formData); // truyền dữ liệu mới lên component cha
+    onClose(); // đóng modal
   };
 
   return (
-    <Overlay onClose={onClose}>
-      <div className="bg-gray-900 text-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative">
+    <Overlay>
+      <div className="relative bg-gray-900 text-white rounded-lg shadow-lg w-full max-w-4xl p-6">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -36,7 +69,7 @@ const EditMovieModal = ({ movie, onSave, onClose }) => {
 
         {/* Title */}
         <h2 className="text-2xl font-semibold mb-4 border-b border-gray-600 pb-2 text-primary text-center">
-          THAY ĐỔI THÔNG TIN PHIM
+          THÊM PHIM MỚI
         </h2>
 
         {/* Form */}
@@ -87,9 +120,7 @@ const EditMovieModal = ({ movie, onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="text-gray-400 text-sm">
-              Ngày khởi chiếu (dd/mm/yyyy)
-            </label>
+            <label className="text-gray-400 text-sm">Ngày khởi chiếu</label>
             <input
               type="date"
               value={formData.release_date}
@@ -98,13 +129,7 @@ const EditMovieModal = ({ movie, onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="text-gray-400 text-sm">Poster</label>
-            <input
-              type="text"
-              value={formData.poster_url}
-              onChange={(e) => handleChange("poster_url", e.target.value)}
-              className="w-full p-2 rounded bg-gray-800 text-white mt-1 border border-gray-700 focus:border-1 focus:border-primary transition outline-none"
-            />
+            <label className="text-gray-400 text-sm mr-2">Poster</label>
             {formData.poster_url && (
               <img
                 src={formData.poster_url}
@@ -112,21 +137,52 @@ const EditMovieModal = ({ movie, onSave, onClose }) => {
                 className="w-32 mt-2 rounded"
               />
             )}
+            <input
+              id="fileInputAdd"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+            <label
+              htmlFor="fileInputAdd"
+              className="inline-block w-32 px-4 py-1.5 text-center bg-gray-300 hover:bg-gray-400 text-black rounded cursor-pointer active:scale-95 transition mt-2"
+            >
+              Chọn ảnh
+            </label>
           </div>
-        </div>
-        <div className="mt-4">
-          <label className="text-gray-400 text-sm">Mô tả</label>
-          <textarea
-            type="text"
-            value={formData.description}
-            onChange={(e) => handleChange("description", e.target.value)}
-            className="w-full p-2 rounded bg-gray-800 text-white mt-1 border border-gray-700 focus:border-1 focus:border-primary transition outline-none"
-            rows="3"
-          />
+          <div>
+            <label className="text-gray-400 text-sm">Mô tả</label>
+            <textarea
+              ref={descriptionRef}
+              value={formData.description}
+              onChange={handleDescriptionChange}
+              onBlur={handleDescriptionBlur}
+              className="w-full p-2 rounded bg-gray-800 text-white mt-1 border border-gray-700 focus:border-primary transition outline-none"
+              rows="1"
+            />
+          </div>
+
+          <div className="flex justify-end gap-4 mt-2 col-span-2">
+            <Button
+              variant="primary"
+              onClick={handleAdd}
+              className="px-4 py-2 !rounded"
+            >
+              Thêm phim
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={onClose}
+              className="px-4 py-2 !rounded"
+            >
+              Đóng
+            </Button>
+          </div>
         </div>
       </div>
     </Overlay>
   );
 };
 
-export default EditMovieModal;
+export default AddMovieModal;

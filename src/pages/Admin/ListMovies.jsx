@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { dummyShowsData } from "../../assets/mockData";
+import { movies } from "../../assets/mockData";
 import { timeFormatReleaseDate } from "./../../helper/timeFormat";
-import { EyeIcon, LockIcon, PenIcon } from "lucide-react";
-import MovieDetailModal from "./Modals/MovieDetailModal";
+import { EyeIcon, SettingsIcon, Trash2Icon } from "lucide-react";
 import Toolbar from "../../components/ui/Toolbar";
-import EditMovieModal from "./Modals/EditMovieModal";
+import EditMovieModal from "./Modals/Movies/EditMovieModal";
 import FullPageSpinner from "../../components/ui/FullPageSpinner";
+import AddMovieModal from "./Modals/Movies/AddMovieModal";
+import DetailMovieModal from "./Modals/Movies/DetailMovieModal";
+import BlurCircle from "./../../components/BlurCircle";
 const ListMovies = () => {
   // false -> true
   const [loading, setLoading] = useState(false);
+  const [addMovie, setAddMovie] = useState(null);
   const [viewMovie, setViewMovie] = useState(null);
   const [editMovie, setEditMovie] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -17,7 +20,13 @@ const ListMovies = () => {
     setSearchValue(value);
   };
 
-  const filteredMovies = dummyShowsData.filter((movie) =>
+  const handleAdd = () => {};
+
+  const handleUpdate = (updatedMovie) => {};
+
+  const handleDelete = () => {};
+
+  const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
@@ -31,14 +40,16 @@ const ListMovies = () => {
 
   return !loading ? (
     <>
-      <div className="w-full mt-6 overflow-x-auto">
-        <Toolbar onSearch={handleSearch} />
+      <div className="relative w-full mt-6">
+        <BlurCircle top="0" left="0" />
+        <Toolbar onSearch={handleSearch} onAdd={() => setAddMovie(true)} />
+
         {/* Table */}
-        <table className="w-full border-collapse rounded-md overflow-hidden text-nowrap">
+        <table className="w-full border-collapse rounded-md overflow-hidden">
           <thead>
             <tr className="bg-primary/20 text-left text-white">
               {infoMovies.map((info) => (
-                <th key={info.title} className="p-2 font-medium first:pl-5">
+                <th key={info.title} className="p-2 font-medium first:pl-10">
                   {info.title}
                 </th>
               ))}
@@ -50,13 +61,13 @@ const ListMovies = () => {
                 key={data.id}
                 className="border-b border-primary/10 bg-primary/5 even:bg-primary/10"
               >
-                <td className="p-2 text-base pl-5">{index + 1}</td>
+                <td className="p-2 text-base pl-10">{index + 1}</td>
                 <td className="p-2 min-w-45">{data.title}</td>
                 <td className="p-2">
                   {timeFormatReleaseDate(data.release_date)}
                 </td>
                 <td className="p-2">{"Đang khởi chiếu"}</td>
-                <td className="p-2 flex gap-2 text-sm">
+                <td className="p-2 flex gap-4 text-sm">
                   <span
                     className="cursor-pointer active:scale-95"
                     onClick={() => setViewMovie(data)}
@@ -67,10 +78,13 @@ const ListMovies = () => {
                     className="cursor-pointer active:scale-95"
                     onClick={() => setEditMovie(data)}
                   >
-                    <PenIcon className="w-6 h-6" />
+                    <SettingsIcon className="w-6 h-6" />
                   </span>
-                  <span className="cursor-pointer active:scale-95">
-                    <LockIcon className="w-6 h-6" />
+                  <span
+                    onClick={handleDelete}
+                    className="cursor-pointer active:scale-95  text-red-500"
+                  >
+                    <Trash2Icon className="w-6 h-6" />
                   </span>
                 </td>
               </tr>
@@ -79,16 +93,23 @@ const ListMovies = () => {
         </table>
       </div>
 
-      {/* Modal view movie detail */}
+      {addMovie && (
+        <AddMovieModal movie={addMovie} onClose={() => setAddMovie(null)} />
+      )}
+
       {viewMovie && (
-        <MovieDetailModal
+        <DetailMovieModal
           movie={viewMovie}
           onClose={() => setViewMovie(null)}
         />
       )}
-      {/* Modal edit movie */}
+
       {editMovie && (
-        <EditMovieModal movie={editMovie} onClose={() => setEditMovie(null)} />
+        <EditMovieModal
+          movie={editMovie}
+          onSave={handleUpdate}
+          onClose={() => setEditMovie(null)}
+        />
       )}
     </>
   ) : (

@@ -1,6 +1,4 @@
 import Home from "./pages/Home";
-import DefaultLayout from "./layouts/DefaultLayout";
-import Movies from "./pages/Movies";
 import MovieDetails from "./pages/MovieDetails";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Admin/Dashboard";
@@ -9,70 +7,109 @@ import AdminLayout from "./layouts/AdminLayout";
 import ListMovies from "./pages/Admin/ListMovies";
 import ListShows from "./pages/Admin/ListShows";
 import ListBookings from "./pages/Admin/ListBookings";
-import { BookingProvider } from "./provider/BookingProvider";
-import { UserProvider } from "./provider/UserProvider";
 import ListUsers from "./pages/Admin/ListUsers";
 import BookingHistory from "./pages/BookingHistory";
 import SearchPage from "./pages/SearchPage";
 import Profile from "./pages/Profile";
+import Movies from "./pages/Movies";
+import UserLayout from "./layouts/UserLayout";
 
 const routes = [
   {
-    layout: null,
-    pages: [{ key: "login", path: "/login", element: <Login /> }],
-  },
-  {
-    layout: (
-      <UserProvider>
-        <BookingProvider>
-          <DefaultLayout />
-        </BookingProvider>
-      </UserProvider>
-    ),
+    layout: <UserLayout />,
     pages: [
-      { key: "home", path: "/", element: <Home /> },
-      { key: "movies", path: "/movies/:type", element: <Movies /> },
+      {
+        key: "home",
+        path: "/",
+        element: <Home />,
+        roles: ["CUSTOMER"],
+      },
+      {
+        key: "login",
+        path: "/login",
+        element: <Login />,
+        guestOnly: true,
+      },
+      {
+        key: "movies",
+        path: "/movies/:type",
+        element: <Movies />,
+        roles: ["CUSTOMER"],
+      },
       {
         key: "movies/details",
-        path: "/movies/:id",
+        path: "/movie/:id",
         element: <MovieDetails />,
+        requireAuth: true,
+        roles: ["CUSTOMER"],
       },
       {
         key: "my-bookings",
         path: "/my-bookings",
         element: <MyBookings />,
+        requireAuth: true,
+        roles: ["CUSTOMER"],
       },
       {
         key: "booking-history",
         path: "/booking-history",
         element: <BookingHistory />,
+        requireAuth: true,
+        roles: ["CUSTOMER"],
       },
-
       {
         key: "profile",
         path: "/profile",
         element: <Profile />,
+        requireAuth: true,
+        roles: ["CUSTOMER"],
       },
       {
         key: "search-page",
         path: "/search",
         element: <SearchPage />,
+        roles: ["CUSTOMER"],
       },
     ],
   },
   {
-    path: "/admin",
     layout: <AdminLayout />,
     pages: [
-      { key: "dashboard", path: "", element: <Dashboard /> },
-      { key: "list-movies", path: "list-movies", element: <ListMovies /> },
-      { key: "list-shows", path: "list-shows", element: <ListShows /> },
+      {
+        key: "dashboard",
+        path: "/admin",
+        element: <Dashboard />,
+        requireAuth: true,
+        roles: ["ADMIN"],
+      },
+      {
+        key: "list-movies",
+        path: "/admin/list-movies",
+        element: <ListMovies />,
+        requireAuth: true,
+        roles: ["ADMIN"],
+      },
+      {
+        key: "list-shows",
+        path: "/admin/list-shows",
+        element: <ListShows />,
+        requireAuth: true,
+        roles: ["ADMIN"],
+      },
       {
         key: "list-bookings",
-        path: "list-bookings",
+        path: "/admin/list-bookings",
         element: <ListBookings />,
+        requireAuth: true,
+        roles: ["ADMIN"],
       },
-      { key: "list-users", path: "list-users", element: <ListUsers /> },
+      {
+        key: "list-users",
+        path: "/admin/list-users",
+        element: <ListUsers />,
+        requireAuth: true,
+        roles: ["ADMIN"],
+      },
     ],
   },
 ];

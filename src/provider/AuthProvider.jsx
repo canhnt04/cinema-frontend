@@ -1,37 +1,79 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useUser } from "../hooks/useUser";
-
+import { useNavigate } from "react-router-dom";
+import { loginService } from "../services/AuthService";
+import { getuserInfoService } from "../services/UserService";
+import { showToast } from "../helper/cooldownToast";
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
-  const { setUser } = useUser();
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("userToken");
-    if (storedToken) setToken(storedToken);
+    const init = async () => {
+      const storedToken = localStorage.getItem("accessToken");
+      if (storedToken) {
+        setIsAuthenticated(true);
+        try {
+          const info = await getuserInfoService();
+          setUser(info.result);
+        } catch {
+          localStorage.removeItem("accessToken");
+        }
+      }
+      setLoading(false);
+    };
+    init();
   }, []);
 
-  const login = (username, password) => {
-    if (username === "admin@gmail.com" && password === "123") {
-      const fakeToken = "fake-jwt-token-tancanh";
-      localStorage.setItem("userToken", fakeToken);
-      setToken(fakeToken);
-      return true;
+  const login = async (email, password) => {
+    setLoading(true);
+    try {
+      const res = await loginService(email, password);
+
+      if (res?.code === 0) {
+        const token = res.result?.token;
+        localStorage.setItem("accessToken", token);
+
+        const userInfo = await getuserInfoService();
+        setUser(userInfo.result);
+
+        setIsAuthenticated(true);
+      }
+
+      return res;
+    } catch (err) {
+      console.log(err);
+
+      throw err.response?.data || err;
+    } finally {
+      setLoading(false);
     }
-    return false;
   };
 
   const logout = () => {
-    localStorage.removeItem("userToken");
-    setToken(null);
-    setUser(null);
+    setLoading(true);
+    showToast("Đăng xuất thành công!", { type: "success", duration: 2000 });
+    navigate("/");
+    scrollTo(0, 0);
+
+    setTimeout(() => {
+      localStorage.removeItem("accessToken");
+      setUser(null);
+      setIsAuthenticated(false);
+
+      setLoading(false);
+    }, 100);
   };
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: !!token,
-        token,
+        isAuthenticated,
+        user,
+        loading,
         login,
         logout,
       }}

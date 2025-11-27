@@ -1,8 +1,8 @@
 import { XIcon } from "lucide-react";
-import Overlay from "../../../components/ui/Overlay";
-import { timeFormatReleaseDate } from "../../../helper/timeFormat";
+import { timeFormatReleaseDate } from "../../../../helper/timeFormat";
+import Overlay from "../../../../components/ui/Overlay";
 
-const MovieDetailModal = ({ movie, onClose }) => {
+const DetailMovieModal = ({ movie, onClose }) => {
   if (!movie) return null;
 
   const infoMovieDetails = [
@@ -61,4 +61,4 @@ const MovieDetailModal = ({ movie, onClose }) => {
   );
 };
 
-export default MovieDetailModal;
+export default DetailMovieModal;

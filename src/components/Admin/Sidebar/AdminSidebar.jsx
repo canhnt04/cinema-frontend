@@ -5,14 +5,14 @@ import {
   TicketIcon,
   UsersIcon,
 } from "lucide-react";
-import { assets } from "../../../assets/assets";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
+import { assets } from "../../../assets/assets";
+import Button from "../../ui/Button";
 
 const AdminSidebar = () => {
-  const user = {
-    full_name: "Nguyễn Tấn Cảnh",
-    avatarUrl: assets.avatar,
-  };
+  const { user, logout } = useAuth();
+
   const adminNAvLinks = [
     { name: "Dashboard", path: "/admin", icon: LayoutDashboardIcon },
     {
@@ -40,11 +40,13 @@ const AdminSidebar = () => {
     <div className="h-[calc(100vh-64px)] md:flex flex-col items-center pt-8 max-w-13 md:max-w-60 w-full border-r border-gray-300/20 text-sm">
       <img
         className="h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto"
-        src={user.avatarUrl}
+        src={user?.avatarUrl || assets.avatar}
         alt="sidebar"
       />
-      <p className="mt-2 text-base max-md:hidden">{user.full_name}</p>
-      <div className="w-full">
+      <p className="mt-2 text-base max-md:hidden">
+        {user?.fullName || "Admin"}
+      </p>
+      <div className="w-full flex-1">
         {adminNAvLinks.map((link, index) => (
           <NavLink
             key={index}
@@ -70,6 +72,9 @@ const AdminSidebar = () => {
           </NavLink>
         ))}
       </div>
+      <Button onClick={() => logout()} className="px-12 py-2 mb-15">
+        Đăng xuất
+      </Button>
     </div>
   );
 };

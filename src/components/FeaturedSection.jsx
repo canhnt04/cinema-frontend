@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BlurCircle from "./BlurCircle";
 import MovieCard from "./MovieCard";
-import { dummyShowsData } from "../assets/mockData";
+import { movies } from "../assets/mockData";
 import { useRef, useState } from "react";
 import { filterNowShowing } from "../helper/MoviesFilter";
 
@@ -11,7 +11,7 @@ const FeaturedSection = () => {
   const navigate = useNavigate();
   const listMovieRef = useRef(null);
 
-  const filteredMovie = filterNowShowing(dummyShowsData);
+  const filteredMovie = filterNowShowing(movies);
 
   const handleShowMore = () => {
     if (visibleCount < filteredMovie.length) {

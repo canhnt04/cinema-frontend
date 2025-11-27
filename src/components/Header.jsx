@@ -3,20 +3,20 @@ import { assets } from "../assets/assets";
 import { HistoryIcon, LogOutIcon, UserCog2Icon } from "lucide-react";
 import Navbar from "./Navbar";
 import Button from "./ui/Button";
-import { useUser } from "../hooks/useUser";
 import { useRef, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { showToast } from "./../helper/cooldownToast";
 import SearchBar from "./ui/SearchBar";
 import useClickOutside from "../hooks/useClickOutside";
+import FullPageSpinner from "./ui/FullPageSpinner";
 const Header = () => {
   const navigate = useNavigate();
-  const { user } = useUser();
-  const { logout } = useAuth();
+  const { user, loading, logout } = useAuth();
   const [isDropdown, setIsDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
   useClickOutside(dropdownRef, () => setIsDropdown(false));
+
+  if (loading) return <FullPageSpinner />;
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 select-none">
@@ -81,7 +81,6 @@ const Header = () => {
                 </div>
                 <div
                   onClick={() => {
-                    showToast("Đăng xuất thành công!", { type: "success" });
                     setTimeout(() => logout(), 200);
                   }}
                   className="flex gap-2 transition-colors hover:bg-gray-900 p-3 my-1 w-full cursor-pointer"
@@ -93,7 +92,7 @@ const Header = () => {
             )}
 
             <img
-              src={user.avatar}
+              src={user.avatar || assets.avatar}
               alt="img"
               className="w-[38.8px] h-[38.8px] rounded-full object-cover border-2 border-white cursor-pointer"
             />

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useUser } from "../hooks/useUser";
 import FullPageSpinner from "../components/ui/FullPageSpinner";
 import BlurCircle from "../components/BlurCircle";
 import { assets } from "../assets/assets";
 import Button from "../components/ui/Button";
+import { useAuth } from "../hooks/useAuth";
 
 const Profile = () => {
   const [loading, setLoading] = useState(true);
 
-  const { user } = useUser();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (user) {

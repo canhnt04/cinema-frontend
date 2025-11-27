@@ -12,8 +12,8 @@ const MovieCard = ({ movie }) => {
     <div className="flex flex-col justify-between p-3 bg-gray-800 rounded-2xl hover:-translate-y-1 transition duration-300 w-66 select-none">
       <img
         onClick={() => {
+          navigate(`/movie/${movie.movie_id}`);
           scrollTo(0, 0);
-          navigate(`/movies/${movie.movie_id}`);
         }}
         src={movie.poster_url}
         className="rounded-lg h-52 w-full object-cover object-right-bottom cursor-pointer"
@@ -30,8 +30,8 @@ const MovieCard = ({ movie }) => {
       </p>
       <Button
         onClick={() => {
+          navigate(`/movie/${movie.movie_id}`);
           scrollTo(0, 0);
-          navigate(`/movies/${movie.movie_id}`);
         }}
         className="text-gray-200 mt-3 py-3 text-xs font-medium"
       >
