@@ -1,5 +1,11 @@
-import { get } from "./BaseService";
+import { del, get, post, put } from "./BaseService";
 
-export const getuserInfoService = () => get("/users/me");
+export const getuserInfo = () => get("/users/me");
 
-export const getUsersService = () => get("/users");
+export const getUsers = () => get("/users");
+
+export const addUser = (data) => post("/users", data);
+
+export const updateUser = (userId, data) => put(`/users/${userId}`, data);
+
+export const deleteUser = (userId) => del(`/users/${userId}`, userId);

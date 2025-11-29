@@ -1,24 +1,30 @@
-import { assets } from "../../assets/assets";
 import BlurCircle from "../BlurCircle";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "./../../hooks/useBooking";
-import { useEffect } from "react";
-import { showToast } from "../../helper/cooldownToast";
-
-const SeatLayout = () => {
-  const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  const { selectedTicket, selectedSeats, setSelectedSeats } = useBooking();
+import { useEffect, useState } from "react";
+import { showToast } from "./../../helper/cooldownToast";
+import { assets } from "./../../assets/assets";
+import { getSeatByShowtime } from "../../services/SeatService";
+const SeatLayout = ({ showtimeId }) => {
+  const [seats, setSeats] = useState([]);
+  const { selectedSeats, setSelectedSeats } = useBooking();
   const navigate = useNavigate();
 
   // Total ticket from SelectTicket
-  const totalTickets =
-    Array.isArray(selectedTicket) && selectedTicket.length > 0
-      ? selectedTicket.reduce(
-          (acc, current) => acc + (current.quantity ?? 0),
-          0
-        )
-      : 0;
+  const totalTickets = 10;
+
+  // Group seats by row
+  const groupSeatsByRow = seats?.reduce((acc, seat) => {
+    if (!acc[seat.seatRow]) acc[seat.seatRow] = [];
+    acc[seat.seatRow].push(seat);
+    return acc;
+  }, {});
+
+  // Sort seat number inside each row
+  Object?.keys(groupSeatsByRow).forEach((row) => {
+    groupSeatsByRow[row].sort((a, b) => a.seatNumber - b.seatNumber);
+  });
 
   useEffect(() => {
     setSelectedSeats((prev) => {
@@ -30,20 +36,44 @@ const SeatLayout = () => {
 
       return prev.slice(0, totalTickets);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalTickets]);
 
-  const handleSeatClick = (seatId) => {
+    const fetchSeats = async () => {
+      try {
+        const res = await getSeatByShowtime(showtimeId);
+        if (res) setSeats(res.result);
+      } catch (error) {
+        console.error("Failed to fetch seats:", error);
+      }
+    };
+
+    fetchSeats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalTickets, showtimeId]);
+
+  const handleSeatClick = (seat) => {
+    // ... (Các kiểm tra ban đầu)
+    if (seat.isBooked === 1) {
+      showToast("Ghế đã được đặt!");
+      return;
+    }
+    if (seat.isBooked === 2) {
+      showToast("Ghế đang được giữ!");
+      return;
+    }
+
     if (totalTickets === 0) {
       showToast("Vui lòng chọn vé trước khi chọn ghế");
       return;
     }
 
-    if (selectedSeats.includes(seatId)) {
+    // Kiểm tra xem ghế đã được chọn chưa bằng seatId
+    const isAlreadySelected = selectedSeats.some(
+      (s) => s.seatId === seat.seatId
+    );
+
+    if (isAlreadySelected) {
       return setSelectedSeats((prev) =>
-        prev.includes(seatId)
-          ? prev.filter((id) => id !== seatId)
-          : [...prev, seatId]
+        prev.filter((s) => s.seatId !== seat.seatId)
       );
     }
 
@@ -52,45 +82,45 @@ const SeatLayout = () => {
       return;
     }
 
-    setSelectedSeats([...selectedSeats, seatId]);
+    setSelectedSeats([...selectedSeats, seat]);
+  };
+  // Styling classes
+  const baseSeatStyle =
+    "h-8 w-12 mx-1 my-1 rounded border border-primary/60 cursor-pointer transition ";
+
+  const seatStyles = {
+    NORMAL: "bg-tranparent hover:bg-primary",
+    BOOKED: "bg-gray-700 text-gray-700 border-none cursor-not-allowed",
+    HOLD: "bg-yellow-800 text-gray-200 border-none cursor-not-allowed",
+    SELECTED: "bg-primary text-white",
   };
 
-  const renderSeats = (row, count = 18) => {
+  const renderSeats = (seat) => {
+    const isSelected = selectedSeats.some((s) => s.seatId === seat.seatId);
+
+    let style = seatStyles.NORMAL;
+
+    if (seat.isBooked === 1) style = seatStyles.BOOKED;
+    if (seat.isBooked === 2) style = seatStyles.HOLD;
+    if (isSelected) style = seatStyles.SELECTED;
+
     return (
-      <div className="flex flex-col w-full" key={row}>
-        <div className="flex items-center gap-4">
-          <p className="hidden lg:block text-white mx-2 w-6 text-center text-base">
-            {row}
-          </p>
-          <div className="flex flex-wrap gap-1">
-            {Array.from({ length: count }, (_, i) => {
-              const seatId = `${row}${i + 1}`;
-              return (
-                <button
-                  key={seatId}
-                  onClick={() => handleSeatClick(seatId)}
-                  className={`h-8 w-12 mx-1 my-1 rounded border border-primary/60 cursor-pointer  ${
-                    selectedSeats.includes(seatId)
-                      ? "bg-primary text-white"
-                      : "bg-black text-white"
-                  }`}
-                >
-                  {seatId}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <button
+        key={seat.seatId}
+        onClick={() => handleSeatClick(seat)}
+        className={baseSeatStyle + style}
+      >
+        {seat.seatRow}
+        {seat.seatNumber}
+      </button>
     );
   };
-
   return (
     <div className="relative flex-1 flex flex-col items-center mt-16 md:mt-40">
       <BlurCircle left="-100px" top="-100px" />
       <BlurCircle right="-100px" top="-100px" />
       <h1 className="text-3xl text-center font-semibold mb-4 md:mb-12 uppercase">
-        chọn ghế - {`Rạp ${1}`}
+        chọn ghế
       </h1>
 
       <div className="mx-auto">
@@ -101,7 +131,14 @@ const SeatLayout = () => {
 
         <div className="flex flex-col items-center mt-10 text-xs text-gray-300 w-full">
           <div className="flex flex-col gap-2 mb-6 w-full">
-            {rows.map((row) => renderSeats(row))}
+            {Object.keys(groupSeatsByRow).map((row) => (
+              <div key={row} className="flex items-center gap-2">
+                <span className="w-6 font-bold">{row}</span>
+                <div className="flex gap-2">
+                  {groupSeatsByRow[row].map(renderSeats)}
+                </div>
+              </div>
+            ))}
           </div>
 
           <div className="flex gap-4 mt-6 text-sm">
@@ -111,7 +148,7 @@ const SeatLayout = () => {
             </div>
             <div>
               <span className="inline-block w-4 h-4 bg-primary mr-1"></span>
-              Ghế chọn
+              Ghế đã chọn
             </div>
             <div>
               <span className="inline-block w-4 h-4 bg-gray-500 mr-1"></span>Ghế
@@ -122,7 +159,13 @@ const SeatLayout = () => {
       </div>
 
       <button
-        onClick={() => navigate("/my-bookings")}
+        onClick={() => {
+          if (selectedSeats.length == 0) {
+            showToast("Vui lòng chọn ghế.");
+            return;
+          }
+          navigate("/my-bookings");
+        }}
         className="mt-20 flex items-center gap-1 px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95"
       >
         THANH TOÁN

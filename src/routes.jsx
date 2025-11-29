@@ -13,6 +13,7 @@ import SearchPage from "./pages/SearchPage";
 import Profile from "./pages/Profile";
 import Movies from "./pages/Movies";
 import UserLayout from "./layouts/UserLayout";
+import BookingResultDisplay from "./components/Booking/BookingResultDisplay";
 
 const routes = [
   {
@@ -47,6 +48,13 @@ const routes = [
         key: "my-bookings",
         path: "/my-bookings",
         element: <MyBookings />,
+        requireAuth: true,
+        roles: ["CUSTOMER"],
+      },
+      {
+        key: "booking/result",
+        path: "/booking/result",
+        element: <BookingResultDisplay />,
         requireAuth: true,
         roles: ["CUSTOMER"],
       },

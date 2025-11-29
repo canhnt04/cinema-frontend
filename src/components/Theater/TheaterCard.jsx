@@ -1,4 +1,4 @@
-import { ChevronDown, MonitorPlayIcon } from "lucide-react";
+import { ChevronDown, MapPinned, MonitorPlayIcon } from "lucide-react";
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
 import ShowTimes from "./ShowTimes";
@@ -10,7 +10,7 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
 
   return (
     <div
-      className={`bg-gray-600 text-white rounded shadow ${
+      className={`bg-gray-600 text-white rounded shadow transition ${
         isOpen ? "!bg-primary-dull text-yellow-300" : ""
       }`}
     >
@@ -18,7 +18,7 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
         onClick={onToggle}
         className="flex justify-between items-center p-5 cursor-pointer"
       >
-        <h2 className="text-2xl font-semibold">{theater.name}</h2>
+        <h2 className="text-2xl font-semibold">{theater.theater_name}</h2>
         <ChevronDown
           className={`w-6 h-6 transform transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
@@ -36,9 +36,13 @@ const TheaterCard = ({ theater, isOpen, onToggle }) => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="overflow-hidden px-5 pb-5"
           >
-            <h4 className="text-balance text-base text-white font-medium">
-              {theater.address}
-            </h4>
+            <div className="flex gap-2 items-center text-white">
+              <MapPinned size={16} />
+              <h4 className="text-balance text-base font-medium">
+                {" "}
+                {theater.theater_address || "Chưa có địa chỉ"}
+              </h4>
+            </div>
 
             {roomsWithShowtimes.length > 0 ? (
               roomsWithShowtimes.map((room) => {

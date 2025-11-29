@@ -2,15 +2,17 @@ import { useState } from "react";
 import Overlay from "./../../../../components/ui/Overlay";
 import { XIcon } from "lucide-react";
 import Button from "../../../../components/ui/Button";
+import { showToast } from "../../../../helper/cooldownToast";
+import { addUser } from "../../../../services/UserService";
 
-const AddUserModal = ({ isOpen, onClose, onAddUser }) => {
+const AddUserModal = ({ isOpen, onSuccess, onClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
-    role: "user",
+    role: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,38 +26,38 @@ const AddUserModal = ({ isOpen, onClose, onAddUser }) => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // if (!formData.name || !formData.email || !formData.password) {
-    //   toast.error("Please fill in all required fields");
-    //   return;
-    // }
-    // setLoading(true);
-    // try {
-    //   const response = await fetch("/api/users", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   if (response.ok) {
-    //     const newUser = await response.json();
-    //     onAddUser(newUser);
-    //     showToast("User added successfully");
-    //     setFormData({
-    //       name: "",
-    //       email: "",
-    //       phone: "",
-    //       password: "",
-    //       role: "user",
-    //     });
-    //     onClose();
-    //   } else {
-    //     toast.error("Failed to add user");
-    //   }
-    // } catch (error) {
-    //   toast.error("Error adding user");
-    // } finally {
-    //   setLoading(false);
-    // }
+    e.preventDefault();
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      showToast("Vui lòng điền đầy đủ thông tin bắt buộc");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      showToast("Mật khẩu xác nhận không khớp");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await addUser(formData);
+      if (res.code === 0) {
+        showToast("Thêm người dùng thành công", { type: "success" });
+        onSuccess();
+        onClose();
+      }
+    } catch (error) {
+      if (error.code === 1002) {
+        showToast("Người dùng đã tồn tại");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -177,6 +179,7 @@ const AddUserModal = ({ isOpen, onClose, onAddUser }) => {
             <Button
               variant="secondary"
               onClick={onClose}
+              disabled={loading}
               className="px-4 py-2 !rounded"
             >
               Đóng

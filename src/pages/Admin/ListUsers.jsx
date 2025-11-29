@@ -1,42 +1,59 @@
-import { useState } from "react";
-import { users } from "../../assets/mockData";
+import { useEffect, useState } from "react";
 import { SettingsIcon, UserXIcon } from "lucide-react";
 import Toolbar from "../../components/ui/Toolbar";
-// import DetailUserModal from "./Modals/Users/DetailUserModal";
 import FullPageSpinner from "./../../components/ui/FullPageSpinner";
 import BlurCircle from "../../components/BlurCircle";
 import AddUserModal from "./Modals/User/AddUserModal";
 import EditUserModal from "./Modals/User/EditUserModal";
+import { deleteUser, getUsers } from "../../services/UserService";
+import { showToast } from "../../helper/cooldownToast";
 
 const ListUsers = () => {
-  const [loading] = useState(false);
-  const [addUser, setAddUser] = useState(null);
-  const [editUser, setEditUser] = useState(null);
-  const [searchValue, setSearchValue] = useState("");
+  const [users, setUsers] = useState([]);
+  const [addUser, setAddUser] = useState(false);
+  const [editUser, setEditUser] = useState(false);
+  // const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const handleSearch = (value) => setSearchValue(value);
+  // const handleSearch = (value) => setSearchValue(value);
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.full_name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const headers = ["STT", "Họ tên", "Email", "SĐT", "Vai trò", "Thao tác"];
 
-  const headers = [
-    "STT",
-    "Họ tên",
-    "Email",
-    "SĐT",
-    "Vai trò",
-    // "Ngày tạo",
-    "Thao tác",
-  ];
+  const fetchUsers = async () => {
+    try {
+      const res = await getUsers();
+      if (res) {
+        setUsers(res.result);
+      }
+    } catch (error) {
+      console.error("Lấy dữ liệu người dùng thất bại", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  return !loading ? (
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const handleDeleteUser = async (userId) => {
+    const res = await deleteUser(userId);
+    if (res) {
+      showToast("Xóa người dùng thành công", { type: "success" });
+      fetchUsers();
+    }
+  };
+
+  if (loading) return <FullPageSpinner />;
+
+  return (
     <>
       <div className="relative w-full mt-6">
         <BlurCircle top="0" left="0" />
-        <Toolbar onSearch={handleSearch} onAdd={() => setAddUser(true)} />
+        <Toolbar
+          // onSearch={handleSearch}
+          onAdd={() => setAddUser(true)}
+        />
 
         <table className="w-full border-collapse rounded-md overflow-hidden">
           <thead>
@@ -49,15 +66,15 @@ const ListUsers = () => {
             </tr>
           </thead>
           <tbody className="text-sm">
-            {filteredUsers.map((user, i) => (
+            {users.map((user, index) => (
               <tr
                 key={user.id}
                 className="border-b border-primary/10 bg-primary/5 even:bg-primary/10"
               >
-                <td className="p-2 pl-10">{i + 1}</td>
-                <td className="p-2">{user.full_name}</td>
+                <td className="p-2 pl-10">{index + 1}</td>
+                <td className="p-2">{user.fullName}</td>
                 <td className="p-2">{user.email}</td>
-                <td className="p-2">{user.phone || "-"}</td>
+                <td className="p-2">{user.phone}</td>
                 <td className="p-2">
                   <span
                     className={`px-2 py-1.5 rounded text-sm ${
@@ -79,7 +96,10 @@ const ListUsers = () => {
                   >
                     <SettingsIcon className="w-6 h-6" />
                   </span>
-                  <span className="cursor-pointer active:scale-95 text-red-500">
+                  <span
+                    className="cursor-pointer active:scale-95 text-red-500"
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
                     <UserXIcon className="w-6 h-6" />
                   </span>
                 </td>
@@ -90,19 +110,22 @@ const ListUsers = () => {
       </div>
 
       {addUser && (
-        <AddUserModal isOpen={addUser} onClose={() => setAddUser(false)} />
+        <AddUserModal
+          isOpen={addUser}
+          onSuccess={fetchUsers}
+          onClose={() => setAddUser(false)}
+        />
       )}
 
       {editUser && (
         <EditUserModal
-          isOpen={!!editUser}
+          isOpen={editUser}
           user={editUser}
-          onClose={() => setEditUser(null)}
+          onSuccess={fetchUsers}
+          onClose={() => setEditUser(false)}
         />
       )}
     </>
-  ) : (
-    <FullPageSpinner />
   );
 };
 
