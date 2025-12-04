@@ -18,12 +18,12 @@ const DetailMovieModal = ({ movie, onClose }) => {
     { title: "Mô tả", dataIndex: "description" },
     {
       title: "Ngày khởi chiếu",
-      dataIndex: "release_date",
+      dataIndex: "releaseDate",
       render: (date) => `${timeFormatReleaseDate(date)}`,
     },
     {
       title: "Poster",
-      dataIndex: "poster_url",
+      dataIndex: "posterUrl",
       render: (img) => <img src={img} className="w-12 rounded" />,
     },
   ];

@@ -19,7 +19,6 @@ import { getUsers } from "../../services/UserService";
 import { getBookings } from "../../services/BookingService";
 import { getRevenueService } from "../../services/revenueService";
 import { useNavigate } from "react-router-dom";
-import { assets } from "./../../assets/assets";
 
 const Dashboard = () => {
   const { loading } = useAuth();
@@ -73,7 +72,7 @@ const Dashboard = () => {
           ]
         );
 
-        const bookings = bookingRes?.result?.content || [];
+        const bookings = bookingRes || [];
         const revenues = revenueRes?.result || 0;
         const moviesData = moviesRes?.result || [];
         const usersData = usersRes?.result || [];
@@ -128,11 +127,11 @@ const Dashboard = () => {
             className="flex flex-col justify-between p-3 bg-gray-800 rounded-2xl hover:-translate-y-1 transition duration-300 w-66 select-none cursor-pointer"
           >
             <img
-              onClick={() => {
-                navigate(`/admin/list-movies`);
-                scrollTo(0, 0);
-              }}
-              src={show.posterUrl || assets.poster}
+              // onClick={() => {
+              //   navigate(`/admin/list-movies`);
+              //   scrollTo(0, 0);
+              // }}
+              src={show.posterUrl}
               className="h-60 w-full object-cover"
             />
             <p className="font-semibold mt-2 uppercase text-balance text-primary">

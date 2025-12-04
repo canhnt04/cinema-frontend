@@ -7,7 +7,7 @@ import { addUser } from "../../../../services/UserService";
 
 const AddUserModal = ({ isOpen, onSuccess, onClose }) => {
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     phone: "",
     password: "",
@@ -103,7 +103,7 @@ const AddUserModal = ({ isOpen, onSuccess, onClose }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-700 rounded focus:border-primary transition transition outline-none"
+              className="w-full px-3 py-2 border border-gray-700 rounded focus:border-primary transition outline-none"
               placeholder="Nhập email"
               required
             />
@@ -118,7 +118,7 @@ const AddUserModal = ({ isOpen, onSuccess, onClose }) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-700 rounded focus:border-primary transition transition outline-none"
+              className="w-full px-3 py-2 border border-gray-700 rounded focus:border-primary transition outline-none"
               placeholder="Nhập số điện thoại"
             />
           </div>
