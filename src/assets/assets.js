@@ -8,8 +8,12 @@ import facebookLogo from "./facebookLogo.png";
 import googleChromeLogo from "./googleChromeLogo.png";
 import imgScreen from "./img-screen.png";
 import avatar from "./avatar.jpg";
+import momo from "./momo.png";
+import vnpay from "./vnpay.png";
+import image from "./image.jpg";
 
 export const assets = {
+  image,
   logo,
   poster,
   moneyHeistLogo,
@@ -18,6 +22,8 @@ export const assets = {
   googleChromeLogo,
   imgScreen,
   avatar,
+  momo,
+  vnpay,
 };
 
 export const movies = {

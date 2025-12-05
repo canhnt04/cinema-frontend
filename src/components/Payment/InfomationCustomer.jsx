@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 const InfomationCustomer = ({ onChangeInfo, user }) => {
-  const [name, setName] = useState(user?.fullName);
-  const [email, setEmail] = useState(user?.email);
-  const [phone, setPhone] = useState(user?.phone);
+  const [name, setName] = useState(user.fullName);
+  const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone);
   const updateInfo = (field, value) => {
     const newInfo = {
       name: name,

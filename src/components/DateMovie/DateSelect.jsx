@@ -1,16 +1,16 @@
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
-import BlurCircle from "../BlurCircle";
 import { useBooking } from "./../../hooks/useBooking";
+import BlurCircle from "./../BlurCircle";
 
 dayjs.locale("vi");
 
 const DateSelect = ({ dates = [] }) => {
   const { selectedDate, setSelectedDate } = useBooking();
 
-  const handleDateClick = (index) => {
-    if (index === selectedDate) return;
-    setSelectedDate(index);
+  const handleDateClick = (date) => {
+    if (date === selectedDate) return;
+    setSelectedDate(date);
   };
 
   return (
@@ -23,10 +23,10 @@ const DateSelect = ({ dates = [] }) => {
         {dates.slice(0, 4).map((date, index) => (
           <button
             key={index}
-            onClick={() => handleDateClick(index)}
+            onClick={() => handleDateClick(date)}
             className={`min-w-[96px] flex flex-col items-center py-6 rounded-md border
               ${
-                selectedDate === index
+                selectedDate === date
                   ? "bg-primary text-white font-bold"
                   : "border-primary text-white/80 cursor-pointer"
               }`}

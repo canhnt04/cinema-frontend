@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { loginService } from "../services/AuthService";
-import { getuserInfoService } from "../services/UserService";
+import { getuserInfo } from "../services/UserService";
 import { showToast } from "../helper/cooldownToast";
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       if (storedToken) {
         setIsAuthenticated(true);
         try {
-          const info = await getuserInfoService();
+          const info = await getuserInfo();
           setUser(info.result);
         } catch {
           localStorage.removeItem("accessToken");
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         const token = res.result?.token;
         localStorage.setItem("accessToken", token);
 
-        const userInfo = await getuserInfoService();
+        const userInfo = await getuserInfo();
         setUser(userInfo.result);
 
         setIsAuthenticated(true);

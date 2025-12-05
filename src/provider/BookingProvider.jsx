@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BookingContext } from "../context/BookingContext";
 
 export const BookingProvider = ({ children }) => {
+  const [selectedMovieDetail, setSelectedMovieDetail] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTheater, setSelectedTheater] = useState(null);
   const [selectedShowtime, setSelectedShowtime] = useState(null);
@@ -9,6 +10,7 @@ export const BookingProvider = ({ children }) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   const resetBooking = () => {
+    setSelectedMovieDetail(null);
     setSelectedDate(null);
     setSelectedTheater(null);
     setSelectedShowtime(null);
@@ -19,6 +21,8 @@ export const BookingProvider = ({ children }) => {
   return (
     <BookingContext.Provider
       value={{
+        selectedMovieDetail,
+        setSelectedMovieDetail,
         selectedDate,
         setSelectedDate,
         selectedTheater,

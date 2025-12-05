@@ -2,7 +2,7 @@ import { CheckCircle } from "lucide-react";
 import ConfirmationDetails from "./ConfirmationDetails";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import axiosClient from "./../../services/axiosClient";
+import { bookingResult } from "../../services/BookingService";
 
 const BookingResultDisplay = () => {
   //   const data = {
@@ -49,10 +49,8 @@ const BookingResultDisplay = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axiosClient.get(
-        `/booking/result?status=${status}&txnRef=${txnRef}&paymentId=${paymentId}`
-      );
-      if (res) setData(res.data);
+      const res = await bookingResult(status, txnRef, paymentId);
+      if (res) setData(res);
     };
     if (status.includes("success")) {
       fetchData();

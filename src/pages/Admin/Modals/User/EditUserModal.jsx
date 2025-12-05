@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import Overlay from "./../../../../components/ui/Overlay";
 import { XIcon } from "lucide-react";
 import Button from "../../../../components/ui/Button";
+import { showToast } from "../../../../helper/cooldownToast";
+import { updateUser } from "../../../../services/UserService";
 
-const EditUserModal = ({ isOpen, onClose, user, onUpdateUser }) => {
+const EditUserModal = ({ isOpen, onClose, user, onSuccess }) => {
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     phone: "",
-    role: "user",
+    role: "",
     password: "",
     confirmPassword: "",
   });
@@ -19,7 +21,7 @@ const EditUserModal = ({ isOpen, onClose, user, onUpdateUser }) => {
   useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || "",
+        fullName: user.fullName || "",
         email: user.email || "",
         phone: user.phone || "",
         role: user.role || "user",
@@ -28,6 +30,8 @@ const EditUserModal = ({ isOpen, onClose, user, onUpdateUser }) => {
       });
     }
   }, [user]);
+
+  if (!isOpen || !user) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,39 +42,36 @@ const EditUserModal = ({ isOpen, onClose, user, onUpdateUser }) => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
-    // Validate
-    if (formData.password && formData.password !== formData.confirmPassword) {
-      toast.error("Mật khẩu xác nhận không khớp");
+    if (!formData.fullName || !formData.email) {
+      showToast("Vui lòng điền đầy đủ thông tin bắt buộc");
       return;
     }
 
-    // Fake API + demo:
-    // setLoading(true);
-    // try {
-    //   const response = await fetch(`/api/users/${user.id}`, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(formData),
-    //   });
+    if (formData.password && formData.password !== formData.confirmPassword) {
+      showToast("Mật khẩu xác nhận không khớp");
+      return;
+    }
 
-    //   if (response.ok) {
-    //     const updatedUser = await response.json();
-    //     onUpdateUser(updatedUser);
-    //     toast.success("Cập nhật thành công!");
-    //     onClose();
-    //   } else {
-    //     toast.error("Cập nhật thất bại");
-    //   }
-    // } catch (e) {
-    //   toast.error("Lỗi khi cập nhật");
-    // } finally {
-    //   setLoading(false);
-    // }
+    setLoading(true);
+    try {
+      const res = await updateUser(user.id, formData);
+
+      if (res) {
+        showToast("Cập nhật thành công!", { type: "success" });
+        onSuccess();
+        onClose();
+      } else {
+        showToast("Cập nhật thất bại");
+      }
+    } catch (e) {
+      showToast("Lỗi khi cập nhật");
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  if (!isOpen || !user) return null;
 
   return (
     <Overlay>
@@ -96,8 +97,8 @@ const EditUserModal = ({ isOpen, onClose, user, onUpdateUser }) => {
             </label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-700 rounded focus:border-primary transition outline-none"
               required
