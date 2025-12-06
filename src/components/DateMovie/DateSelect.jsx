@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
-import BlurCircle from "../BlurCircle";
 import { useBooking } from "./../../hooks/useBooking";
+import BlurCircle from "./../BlurCircle";
 
 dayjs.locale("vi");
 
@@ -11,9 +11,6 @@ const DateSelect = ({ dates = [] }) => {
   const handleDateClick = (date) => {
     if (date === selectedDate) return;
     setSelectedDate(date);
-
-    console.log("index :", date);
-    console.log("selectedDate :", selectedDate);
   };
 
   return (

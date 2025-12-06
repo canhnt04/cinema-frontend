@@ -1,12 +1,11 @@
-import { assets } from "../../assets/assets";
 import BlurCircle from "../BlurCircle";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "./../../hooks/useBooking";
 import { useEffect, useState } from "react";
-import { showToast } from "../../helper/cooldownToast";
-import axiosClient from "../../config/axios";
-
+import { showToast } from "./../../helper/cooldownToast";
+import { assets } from "./../../assets/assets";
+import { getSeatByShowtime } from "../../services/SeatService";
 const SeatLayout = ({ showtimeId }) => {
   const [seats, setSeats] = useState([]);
   const { selectedSeats, setSelectedSeats } = useBooking();
@@ -16,14 +15,14 @@ const SeatLayout = ({ showtimeId }) => {
   const totalTickets = 10;
 
   // Group seats by row
-  const groupSeatsByRow = seats.reduce((acc, seat) => {
+  const groupSeatsByRow = seats?.reduce((acc, seat) => {
     if (!acc[seat.seatRow]) acc[seat.seatRow] = [];
     acc[seat.seatRow].push(seat);
     return acc;
   }, {});
 
   // Sort seat number inside each row
-  Object.keys(groupSeatsByRow).forEach((row) => {
+  Object?.keys(groupSeatsByRow).forEach((row) => {
     groupSeatsByRow[row].sort((a, b) => a.seatNumber - b.seatNumber);
   });
 
@@ -40,8 +39,8 @@ const SeatLayout = ({ showtimeId }) => {
 
     const fetchSeats = async () => {
       try {
-        const res = await axiosClient.get(`/seat/${showtimeId}`);
-        setSeats(res.result);
+        const res = await getSeatByShowtime(showtimeId);
+        if (res) setSeats(res.result);
       } catch (error) {
         console.error("Failed to fetch seats:", error);
       }
@@ -160,7 +159,13 @@ const SeatLayout = ({ showtimeId }) => {
       </div>
 
       <button
-        onClick={() => navigate("/my-bookings")}
+        onClick={() => {
+          if (selectedSeats.length == 0) {
+            showToast("Vui lòng chọn ghế.");
+            return;
+          }
+          navigate("/my-bookings");
+        }}
         className="mt-20 flex items-center gap-1 px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95"
       >
         THANH TOÁN

@@ -1,13 +1,20 @@
-import { Armchair, ClockIcon, FilmIcon, MapPin, Theater } from "lucide-react";
-import { formatCurrency } from "../../helper/formatPrice";
-import { timeFormatShowtime } from "../../helper/timeFormat";
+import {
+  Armchair,
+  ArrowLeft,
+  ClockIcon,
+  FilmIcon,
+  MapPin,
+  Theater,
+} from "lucide-react";
+import { timeFormatShowtime } from "./../../helper/timeFormat";
+import { formatCurrency } from "./../../helper/formatPrice";
 
 const ConfirmationDetails = ({ data }) => {
   if (!data) return null;
 
   // Lấy thông tin vé (chỉ lấy vé đầu tiên để hiển thị tổng quan)
-  const firstTicket =
-    data.tickets && data.tickets.length > 0 ? data.tickets[0] : null;
+  // const firstTicket =
+  //   data.tickets && data.tickets.length > 0 ? data.tickets[0] : null;
   const seatNames = data.tickets
     ? data.tickets.map((t) => t.seatName).join(", ")
     : "---";
@@ -104,11 +111,11 @@ const ConfirmationDetails = ({ data }) => {
         <div className="text-center mt-6">
           <button
             onClick={() => {
-              /* Logic điều hướng về trang chủ */
+              window.location.href = "http://localhost:5000";
             }}
-            className="bg-primary text-white py-3 px-8 rounded-md hover:opacity-90 transition-opacity"
+            className="flex items-center gap-1 mx-auto bg-primary text-white py-3 px-8 rounded-md hover:opacity-90 transition-opacity cursor-pointer"
           >
-            Về Trang Chủ
+            <ArrowLeft size={20} /> Về Trang Chủ
           </button>
         </div>
       </div>

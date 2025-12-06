@@ -1,10 +1,10 @@
-import noImage from "../assets/no_image.jpg";
 import { useNavigate } from "react-router-dom";
 import {
   timeFormatDuration,
   timeFormatReleaseDate,
 } from "../helper/timeFormat";
 import Button from "./ui/Button";
+import { assets } from "../assets/assets";
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ const MovieCard = ({ movie }) => {
     <div className="flex flex-col justify-between p-3 bg-gray-800 rounded-2xl hover:-translate-y-1 transition duration-300 w-66 select-none">
       <img
         onClick={() => {
-          navigate(`/movie/${movie.movie_id}`);
+          navigate(`/movie/${movie.movieId}`);
           scrollTo(0, 0);
           navigate(`/movies/${movie.movieId}`);
         }}
-        src={movie.posterUrl || noImage}
+        src={movie.posterUrl || assets.poster}
         className="rounded-lg h-52 w-full object-cover object-right-bottom cursor-pointer"
       />
       <p className="font-semibold mt-2 truncate uppercase">{movie.title}</p>
@@ -32,7 +32,7 @@ const MovieCard = ({ movie }) => {
       </p>
       <Button
         onClick={() => {
-          navigate(`/movie/${movie.movie_id}`);
+          navigate(`/movie/${movie.movieId}`);
           scrollTo(0, 0);
           navigate(`/movies/${movie.movieId}`);
         }}

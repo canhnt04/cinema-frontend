@@ -2,7 +2,6 @@ import {
   FilmIcon,
   LayoutDashboardIcon,
   ListCollapseIcon,
-  TicketIcon,
   UsersIcon,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -20,11 +19,11 @@ const AdminSidebar = () => {
       path: "/admin/list-movies",
       icon: FilmIcon,
     },
-    {
-      name: "List Shows",
-      path: "/admin/list-shows",
-      icon: TicketIcon,
-    },
+    // {
+    //   name: "List Shows",
+    //   path: "/admin/list-shows",
+    //   icon: TicketIcon,
+    // },
     {
       name: "List Bookings",
       path: "/admin/list-bookings",

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
-import { showToast } from "./helper/cooldownToast";
 import FullPageSpinner from "./components/ui/FullPageSpinner";
+import { showToast } from "./helper/cooldownToast";
 
 const PrivateRoute = ({
   children,

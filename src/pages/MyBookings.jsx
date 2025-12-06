@@ -1,35 +1,34 @@
 import BlurCircle from "./../components/BlurCircle";
 import Button from "./../components/ui/Button";
-import { useNavigate } from "react-router-dom";
 import { ClockIcon, FilmIcon } from "lucide-react";
-import Countdown from "../components/ui/Countdown";
 import { timeFormatShowtime } from "../helper/timeFormat";
 import { useBooking } from "../hooks/useBooking";
 import { useEffect, useState } from "react";
-import { formatCurrency } from "../helper/formatPrice";
+import { formatCurrency } from "./../helper/formatPrice";
 import PaymentMethodList from "../components/Payment/PaymentMethodList";
 import InfomationCustomer from "../components/Payment/InfomationCustomer";
-import axiosClient from "../config/axios";
+import { showToast } from "../helper/cooldownToast";
+import axiosClient from "../services/axiosClient";
+import { useAuth } from "../hooks/useAuth";
 
 const MyBookings = () => {
+  const { user } = useAuth();
   const currency = import.meta.env.VITE_CURRENCY;
   const [step, setStep] = useState(1);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false);
 
-  const navigate = useNavigate();
+  const [customerInfo, setCustomerInfo] = useState({
+    name: user.fullName,
+    email: user.email,
+    phone: user.phone,
+  });
+
   const {
     selectedMoiveDetail,
-    selectedDate,
     selectedTheater,
     selectedShowtime,
-    selectedTicket,
     selectedSeats,
   } = useBooking();
-
-  // console.log("selectedMoiveDetail: ", selectedMoiveDetail);
-  // console.log("selectedDate: ", selectedDate);
-  // console.log("selectedTheater: ", selectedTheater);
-  // console.log("selectedShowtime: ", selectedShowtime);
-  // console.log("selectedTicket: ", selectedTicket);
 
   const selectedSeatNames = selectedSeats.map(
     (seat) => `${seat.seatRow}${seat.seatNumber}`
@@ -42,7 +41,7 @@ const MyBookings = () => {
   // Tách hàm xử lý bước
   const handleStep = () => {
     // Tăng step lên 2 hoặc 3 (có thể giới hạn MAX_STEP = 3)
-    setStep((prev) => (prev < 3 ? prev + 1 : prev));
+    setStep((prev) => prev + 1);
   };
 
   // Sử dụng useEffect để theo dõi sự thay đổi của step
@@ -51,20 +50,18 @@ const MyBookings = () => {
     const fetchCreatePayment = async () => {
       try {
         const res = await axiosClient.post("/payment/create-payment", {
-          userId: "f99ea1ea-4a49-4377-b054-f3423c3da0a2",
+          userId: user.id,
           showtimeId: selectedShowtime.showtimeId,
           seatIds: seatIdArr,
           amount: selectedSeats?.length * selectedShowtime?.price,
-          name: "Sếp Bảo",
-          email: "baobao@gmail.com",
-          phone: "041984122",
+          name: customerInfo.name,
+          email: customerInfo.email,
+          phone: customerInfo.phone,
         });
 
         // 💡 QUAN TRỌNG: Kiểm tra cấu trúc data. Nếu là Axios, thường là res.data
         // Giả định server trả về { url: '...' }
-        const redirectUrl = res.result?.url;
-
-        return redirectUrl;
+        window.location.href = res.data.result?.url;
       } catch (error) {
         console.error("Lỗi tạo thanh toán:", error);
         // Xử lý lỗi (ví dụ: hiển thị thông báo)
@@ -72,20 +69,13 @@ const MyBookings = () => {
       }
     };
 
-    // 2. Định nghĩa hàm async để thực hiện việc gọi và await
-    const handlePayment = async () => {
-      const url = await fetchCreatePayment();
-      console.log(url);
-      if (url) {
-        window.location.href = url;
-      } else {
-        console.warn("Không có URL chuyển hướng hợp lệ.");
+    // 2. Chỉ chạy khi step đạt đến 3
+    if (step >= 3) {
+      if (!selectedPaymentMethod) {
+        showToast("Vui lòng chọn phương thức thanh toán.");
+        return;
       }
-    };
-
-    // 3. Chỉ chạy khi step đạt đến 3
-    if (step === 3) {
-      handlePayment();
+      fetchCreatePayment();
     }
 
     // Lưu ý: Thêm dependencies thiếu (axiosClient, selectedShowtime, selectedSeats, etc.)
@@ -106,12 +96,12 @@ const MyBookings = () => {
         </li>
         <div
           className={`w-10 h-[2px] bg-gray-200  ${
-            step == 2 ? "bg-primary" : ""
+            step >= 2 ? "bg-primary" : ""
           }`}
         ></div>
         <li
           className={`uppercase flex flex-col ${
-            step == 2 ? "text-primary" : ""
+            step >= 2 ? "text-primary" : ""
           }`}
         >
           <span className="text-xl font-bold text-center mt-4 mb-2">2</span>
@@ -125,15 +115,24 @@ const MyBookings = () => {
       </ul>
       <div className="flex min-h-[45vh]">
         <div className="mt-4 flex flex-1 flex-col">
-          {step == 1 && <InfomationCustomer />}
-          {step == 2 && <PaymentMethodList />}
+          {step == 1 && (
+            <InfomationCustomer
+              onChangeInfo={(info) => setCustomerInfo(info)}
+              user={user}
+            />
+          )}
+          {step >= 2 && (
+            <PaymentMethodList
+              setSelectPaymentMethod={setSelectedPaymentMethod}
+            />
+          )}
           <Button
             type="button"
             variant="primary"
             className="w-[95%] mt-4 py-2.5 rounded-sm active:scale-95"
             onClick={handleStep}
           >
-            TIẾP TỤC
+            {step == 1 ? "TIẾP TỤC" : "XÁC NHẬN"}
           </Button>
         </div>
         <div className="bg-gray-600 flex-1 mt-2">

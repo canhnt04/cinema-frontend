@@ -1,15 +1,73 @@
 import { useState } from "react";
 import Button from "./../ui/Button";
+import { showToast } from "../../helper/cooldownToast";
+import { registerService } from "../../services/AuthService";
+import FullPageSpinner from "../ui/FullPageSpinner";
 
 const SignUpModal = ({ switchToSignIn, onClose }) => {
-  const [fullname, setFullname] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  return (
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (
+      fullName.trim() === "" ||
+      email.trim() === "" ||
+      phone.trim() === "" ||
+      password.trim() === "" ||
+      confirmPassword.trim() === ""
+    ) {
+      showToast("Vui lòng nhập thông tin đầy đủ!");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showToast("Mật khẩu xác nhận không khớp!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await registerService(
+        fullName,
+        email,
+        phone,
+        password,
+        "CUSTOMER"
+      );
+
+      if (res?.code === 0) {
+        showToast("Đăng ký tài khoản thành công! Xin mời đăng nhập.", {
+          type: "success",
+          duration: 2000,
+        });
+        switchToSignIn();
+      }
+    } catch (error) {
+      if (error?.code === 1002) {
+        showToast("Email đã được sử dụng! Vui lòng đăng ký bằng email khác.");
+      } else {
+        showToast("Có lỗi xảy ra, vui lòng thử lại!");
+        console.log(error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return !loading ? (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-      <form className="w-full max-w-96 sm:w-[400px] text-center border border-zinc-300/60 rounded-2xl px-8 bg-white">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-96 sm:w-[400px] text-center border border-zinc-300/60 rounded-2xl px-8 bg-white"
+      >
         <h1 className="text-zinc-900 text-3xl font-semibold mt-10">Register</h1>
         <p className="text-zinc-500 text-sm mt-2 pb-6">
           Please sign up to continue
@@ -19,8 +77,8 @@ const SignUpModal = ({ switchToSignIn, onClose }) => {
           <input
             type="text"
             placeholder="Full Name"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             className="w-full bg-transparent border border-gray-500/30 outline-none rounded-lg px-3 py-2 text-black"
           />
 
@@ -29,6 +87,14 @@ const SignUpModal = ({ switchToSignIn, onClose }) => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="w-full bg-transparent border border-gray-500/30 outline-none rounded-lg px-3 py-2 text-black"
+          />
+
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             className="w-full bg-transparent border border-gray-500/30 outline-none rounded-lg px-3 py-2 text-black"
           />
 
@@ -49,7 +115,7 @@ const SignUpModal = ({ switchToSignIn, onClose }) => {
           />
 
           <div className="flex gap-x-3 mt-3">
-            <Button variant="primary" className="flex-1 py-3 active:scale-95">
+            <Button type="submit" className="flex-1 py-3 active:scale-95">
               Register
             </Button>
             <Button
@@ -74,6 +140,8 @@ const SignUpModal = ({ switchToSignIn, onClose }) => {
         </div>
       </form>
     </div>
+  ) : (
+    <FullPageSpinner />
   );
 };
 

@@ -1,8 +1,8 @@
 import { CheckCircle } from "lucide-react";
 import ConfirmationDetails from "./ConfirmationDetails";
 import { useEffect, useState } from "react";
-import axiosClient from "../../config/axios";
 import { useSearchParams } from "react-router-dom";
+import { bookingResult } from "../../services/BookingService";
 
 const BookingResultDisplay = () => {
   //   const data = {
@@ -39,6 +39,7 @@ const BookingResultDisplay = () => {
   //     ],
   //   };
 
+  const [success, setSuccess] = useState(true);
   const [data, setData] = useState(null);
 
   const [searchParams] = useSearchParams();
@@ -48,26 +49,52 @@ const BookingResultDisplay = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axiosClient.get(
-        `/booking/result?status=${status}&txnRef=${txnRef}&paymentId=${paymentId}`
-      );
+      const res = await bookingResult(status, txnRef, paymentId);
       if (res) setData(res);
     };
-
-    fetchData();
+    if (status.includes("success")) {
+      fetchData();
+    } else {
+      setSuccess(false);
+    }
   }, []);
 
   return (
-    <div className="px-6 md:px-16 lg:px-40 pt-24 md:pt-36 min-h-screen">
-      <h1 className="text-3xl font-bold text-center text-green-500 mb-2">
-        <CheckCircle className="w-8 h-8 inline-block mr-2" /> THANH TOÁN THÀNH
-        CÔNG!
-      </h1>
-      <p className="text-center text-sm text-white/80 mb-8">
-        Vé của bạn đã được xác nhận.{" "}
-        <a href="https://mail.google.com/">Kiểm tra Email</a>
-      </p>
-      <ConfirmationDetails data={data} />
+    <div className={`px-6 md:px-16 lg:px-40 pt-50 md:pt-36 min-h-screen`}>
+      {success ? (
+        <>
+          <h1 className="text-3xl font-bold text-center text-green-500 mb-2">
+            <CheckCircle className="w-8 h-8 inline-block mr-2" /> THANH TOÁN
+            THÀNH CÔNG!
+          </h1>
+          <p className="text-center text-sm text-white/80 mb-8">
+            Vé của bạn đã được xác nhận.{" "}
+            <a
+              className="text-red-500"
+              target="_blank"
+              href="https://mail.google.com/"
+            >
+              Kiểm tra Email
+            </a>
+          </p>
+          <ConfirmationDetails data={data} />
+        </>
+      ) : (
+        <div className="mt-40 flex flex-col">
+          <h1 className="text-5xl font-bold text-center text-red-500 mb-2">
+            THANH TOÁN THẤT BẠI!
+          </h1>
+          <p className="text-center text-md text-white/80 mt-4">
+            Vui lòng thử lại sau.{" "}
+            <a
+              className="text-red-500 hover:scale-125"
+              href="http://localhost:5000"
+            >
+              Về trang chủ.
+            </a>
+          </p>
+        </div>
+      )}
     </div>
   );
 };

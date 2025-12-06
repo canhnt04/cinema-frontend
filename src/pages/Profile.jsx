@@ -23,7 +23,7 @@ const Profile = () => {
       <div className="flex items-center bg-primary/8 border border-primary/20 rounded-lg mt-4 p-6 w-full max-w-3xl">
         <div className="flex flex-col items-center border-r border-gray-400 pr-6 mr-6">
           <img
-            src={user.avatar || assets.avatar}
+            src={user.avatar || assets.image}
             alt=""
             className="w-12 h-12 rounded-full object-cover"
           />
@@ -37,7 +37,7 @@ const Profile = () => {
         </div>
         <div className="flex flex-col flex-1">
           <p className="text-lg font-semibold text-balance mb-2">
-            Họ và tên: {user.name}
+            Họ và tên: {user.fullName}
           </p>
           <p className="text-lg font-semibold text-balance mb-2">
             Email: {user.email}

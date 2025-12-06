@@ -92,7 +92,7 @@ const Header = () => {
             )}
 
             <img
-              src={user.avatar || assets.avatar}
+              src={user.avatar || assets.image}
               alt="img"
               className="w-[38.8px] h-[38.8px] rounded-full object-cover border-2 border-white cursor-pointer"
             />

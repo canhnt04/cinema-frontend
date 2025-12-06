@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import dayjs from "dayjs";
 import TheaterList from "../components/Theater/TheaterList";
 import MovieInfo from "../components/DateMovie/MovieInfo";
 import DateSelect from "../components/DateMovie/DateSelect";
 import SeatLayout from "../components/Seat/SeatLayout";
-import { useBooking } from "../hooks/useBooking";
-import { getShowtimes } from "../service/showtimes";
-import FullPageSpinner from "../components/ui/FullPageSpinner";
-import { getMovieById } from "../service/movie";
+import dayjs from "dayjs";
+import { getMovieDetail } from "../services/MoviesService";
+import { getShowtimesByMovie } from "../services/ShowtimeService";
+import { useBooking } from "./../hooks/useBooking";
+import FullPageSpinner from "./../components/ui/FullPageSpinner";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -17,15 +17,12 @@ const MovieDetails = () => {
 
   const {
     selectedShowtime,
-    setSelectedShowtime,
     selectedDate,
-    setSelectedMoiveDetail,
+    setSelectedMovieDetail,
     resetBooking,
   } = useBooking();
 
   const selectedMovieId = id;
-
-  // const movieShowtimes = showtimes.filter((s) => s.movie_id === Number(id));
 
   const uniqueDates = movieShowtimes.length
     ? [
@@ -41,18 +38,20 @@ const MovieDetails = () => {
       })
     : [];
 
+  console.log("uniqueDates: ", uniqueDates);
+
   useEffect(() => {
     const loadMovieInfo = async () => {
-      const data = await getMovieById(selectedMovieId);
-      if (data) {
-        setShow(data.result);
-        setSelectedMoiveDetail(data.result);
+      const res = await getMovieDetail(selectedMovieId);
+      if (res) {
+        setShow(res?.result);
+        setSelectedMovieDetail(res?.result);
       }
     };
     const loadShowtimes = async () => {
-      const data = await getShowtimes(selectedMovieId);
-      if (data) {
-        setMovieShowtimes(data.result); // mảng suất chiếu
+      const res = await getShowtimesByMovie(selectedMovieId);
+      if (res) {
+        setMovieShowtimes(res?.result);
       }
     };
 

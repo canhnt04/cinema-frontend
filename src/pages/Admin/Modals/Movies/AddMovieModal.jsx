@@ -2,6 +2,7 @@ import { XIcon } from "lucide-react";
 import Overlay from "../../../../components/ui/Overlay";
 import { useRef, useState } from "react";
 import Button from "../../../../components/ui/Button";
+import { showToast } from "../../../../helper/cooldownToast";
 
 const AddMovieModal = ({ onAdd, onClose }) => {
   const [formData, setFormData] = useState({
@@ -37,23 +38,23 @@ const AddMovieModal = ({ onAdd, onClose }) => {
 
     const previewUrl = URL.createObjectURL(file);
     setFormData((prev) => ({ ...prev, poster_url: previewUrl }));
-
-    // Upload lên Cloudinary
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "cinema-web");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dvthcg6hz/image/upload",
-      { method: "POST", body: data }
-    );
-    const fileData = await res.json();
-    setFormData((prev) => ({ ...prev, poster_url: fileData.secure_url }));
   };
 
-  const handleAdd = () => {
-    onAdd(formData); // truyền dữ liệu mới lên component cha
-    onClose(); // đóng modal
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.title ||
+      !formData.genre ||
+      !formData.director ||
+      !formData.cast ||
+      !formData.duration ||
+      !formData.release_date ||
+      !formData.poster_url
+    ) {
+      showToast("Vui lòng điền đầy đủ thông tin bắt buộc");
+      return;
+    }
   };
 
   return (
@@ -73,7 +74,7 @@ const AddMovieModal = ({ onAdd, onClose }) => {
         </h2>
 
         {/* Form */}
-        <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div>
             <label className="text-gray-400 text-sm">Tên phim</label>
             <input
@@ -166,7 +167,7 @@ const AddMovieModal = ({ onAdd, onClose }) => {
           <div className="flex justify-end gap-4 mt-2 col-span-2">
             <Button
               variant="primary"
-              onClick={handleAdd}
+              type="submit"
               className="px-4 py-2 !rounded"
             >
               Thêm phim
@@ -179,7 +180,7 @@ const AddMovieModal = ({ onAdd, onClose }) => {
               Đóng
             </Button>
           </div>
-        </div>
+        </form>
       </div>
     </Overlay>
   );

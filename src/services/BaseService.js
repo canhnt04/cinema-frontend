@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 const request = async (method, url, body = null, params = null) => {
   try {
     const res = await axiosClient({ method, url, data: body, params });
-    return res.data;
+    return res?.data;
   } catch (error) {
     throw error.response?.data || error;
   }

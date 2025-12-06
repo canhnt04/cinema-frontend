@@ -57,12 +57,14 @@ const TrailerSection = () => {
         </div>
         <div
           onClick={() => {
-            setCurrentTrailer("https://www.youtube.com/watch?v=BD6PoZJdt_M");
+            setCurrentTrailer(
+              "https://www.youtube.com/watch?v=upRA1Lbg8lk&list=RDupRA1Lbg8lk&start_radio=1"
+            );
           }}
           className="relative group-hover:not-hover:opacity-50 hover:-translate-y-1 duration-300 transition max-md:h-60 md:max-h-60 cursor-pointer"
         >
           <img
-            src={movies.muaDo}
+            src={movies.tuChienTrenKhong}
             alt="trailer"
             className="rounded-lg w-full h-full object-cover brightness-75"
           />
@@ -78,7 +80,7 @@ const TrailerSection = () => {
           className="relative group-hover:not-hover:opacity-50 hover:-translate-y-1 duration-300 transition max-md:h-60 md:max-h-60 cursor-pointer"
         >
           <img
-            src={movies.muaDo}
+            src={movies.tuChienTrenKhong}
             alt="trailer"
             className="rounded-lg w-full h-full object-cover brightness-75"
           />

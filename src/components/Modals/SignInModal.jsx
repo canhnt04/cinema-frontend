@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Button from "./../ui/Button";
-import { assets } from "./../../assets/assets";
 import { showToast } from "./../../helper/cooldownToast";
 import { useAuth } from "./../../hooks/useAuth";
 import FullPageSpinner from "./../ui/FullPageSpinner";
@@ -83,11 +82,7 @@ const SignInModal = ({ switchToSignUp, onClose }) => {
           </div>
 
           <div className="flex gap-x-3 mt-3">
-            <Button
-              variant="primary"
-              type="submit"
-              className="flex-1 py-3 active:scale-95"
-            >
+            <Button type="submit" className="flex-1 py-3 active:scale-95">
               Login
             </Button>
             <Button
@@ -111,7 +106,7 @@ const SignInModal = ({ switchToSignUp, onClose }) => {
           </button>
         </div>
 
-        <button
+        {/* <button
           type="button"
           className="w-full flex items-center justify-center gap-2 mt-2 bg-blue-500 py-3 rounded-full text-white hover:bg-blue-600 transition-colors cursor-pointer leading-none"
         >
@@ -130,7 +125,7 @@ const SignInModal = ({ switchToSignUp, onClose }) => {
             className="w-4 h-4"
           />
           Login with Google
-        </button>
+        </button> */}
       </div>
     </div>
   ) : (

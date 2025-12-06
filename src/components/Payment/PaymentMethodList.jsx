@@ -2,26 +2,38 @@ import { useEffect, useState } from "react";
 import momo from "../../assets/momo.png";
 import vnpay from "../../assets/vnpay.png";
 import { Check } from "lucide-react";
+import { showToast } from "../../helper/cooldownToast";
 
 const methods = [
+  { id: "vnpay", name: "Thanh toán qua VNPay", img: vnpay, isChoose: 1 },
   {
     id: "momo",
     name: "Thanh toán qua Momo",
     img: momo,
-    isChoose: 1,
+    isChoose: 2,
   },
-  { id: "vnpay", name: "Thanh toán qua VNPay", img: vnpay, isChoose: 2 },
 ];
 
-const PaymentMethodList = () => {
+const PaymentMethodList = ({ setSelectPaymentMethod }) => {
   const [choose, setChoose] = useState(0);
+
+  const handleClick = (choose) => {
+    setChoose(choose);
+    setSelectPaymentMethod(true);
+    if (choose == 2) {
+      showToast("Hiện đang phát triển.");
+      setChoose(0);
+      setSelectPaymentMethod(false);
+    }
+  };
+
   useEffect(() => {}, [choose]);
   return (
     <div className="flex flex-col gap-4">
       {methods.map((m) => (
         <div
           key={m.id}
-          onClick={() => setChoose(m.isChoose)}
+          onClick={() => handleClick(m.isChoose)}
           className={`w-[95%] p-4 md:p-6 border-2 border-primary/50 rounded-lg shadow-xl cursor-pointer transition hover:bg-gray-700 ${
             choose == m.isChoose ? "bg-gray-700" : ""
           }`}

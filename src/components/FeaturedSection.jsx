@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import BlurCircle from "./BlurCircle";
 import MovieCard from "./MovieCard";
 import { useEffect, useRef, useState } from "react";
-import axiosClient from "../config/axios";
+import { getMovies } from "../services/MoviesService";
+import axiosClient from "../services/axiosClient";
 
 const FeaturedSection = () => {
   const [visibleCount, setVisibleCount] = useState(4);
+  const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
   const listMovieRef = useRef(null);
 
-  const [movies, setMovies] = useState([]);
-
   const handleShowMore = () => {
-    if (visibleCount < movies.length) {
-      setVisibleCount(Math.min(visibleCount + 4, movies.length));
+    if (visibleCount < movies?.length) {
+      setVisibleCount(Math.min(visibleCount + 4, movies?.length));
     } else {
       setVisibleCount(4);
     }
@@ -29,6 +29,17 @@ const FeaturedSection = () => {
       const res = await axiosClient.get("/movies");
       if (res) {
         setMovies(res.result);
+      }
+    };
+
+    loadMovies();
+  }, []);
+
+  useEffect(() => {
+    const loadMovies = async () => {
+      const res = await getMovies("/movies");
+      if (res) {
+        setMovies(res?.result);
       }
     };
 
@@ -55,7 +66,7 @@ const FeaturedSection = () => {
         ref={listMovieRef}
         className="flex flex-wrap max-sm:justify-center gap-8 mt-8"
       >
-        {movies.slice(0, visibleCount).map((show) => (
+        {movies?.slice(0, visibleCount)?.map((show) => (
           <MovieCard key={show.movieId} movie={show} />
         ))}
       </div>
@@ -66,7 +77,7 @@ const FeaturedSection = () => {
           className="px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition
         rounded-md font-medium cursor-pointer"
         >
-          {visibleCount < movies.length ? "Hiển thị thêm" : "Thu gọn"}
+          {visibleCount < movies?.length ? "Hiển thị thêm" : "Thu gọn"}
         </button>
       </div>
     </div>
