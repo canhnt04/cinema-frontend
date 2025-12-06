@@ -38,7 +38,7 @@ const routes = [
         roles: ["CUSTOMER"],
       },
       {
-        key: "movies/details",
+        key: "movie/details",
         path: "/movie/:id",
         element: <MovieDetails />,
         requireAuth: true,

@@ -15,7 +15,6 @@ const MovieCard = ({ movie }) => {
         onClick={() => {
           navigate(`/movie/${movie.movieId}`);
           scrollTo(0, 0);
-          navigate(`/movies/${movie.movieId}`);
         }}
         src={movie.posterUrl || assets.poster}
         className="rounded-lg h-52 w-full object-cover object-right-bottom cursor-pointer"
@@ -34,7 +33,6 @@ const MovieCard = ({ movie }) => {
         onClick={() => {
           navigate(`/movie/${movie.movieId}`);
           scrollTo(0, 0);
-          navigate(`/movies/${movie.movieId}`);
         }}
         className="text-gray-200 mt-3 py-3 text-xs font-medium"
       >
