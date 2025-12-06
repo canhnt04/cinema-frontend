@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import BlurCircle from "../components/BlurCircle";
 import MovieCard from "../components/MovieCard";
-import { movies } from "./../assets/mockData";
 import { filterComingSoon, filterNowShowing } from "../helper/MoviesFilter";
 
 const Movies = () => {

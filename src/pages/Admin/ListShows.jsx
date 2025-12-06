@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { showtimes } from "../../assets/mockData"; // giả sử có data suất chiếu
 import { EyeIcon, SettingsIcon, Trash2Icon } from "lucide-react";
 import Toolbar from "../../components/ui/Toolbar";
 import AddShowModal from "./Modals/Shows/AddShowModal.jsx";

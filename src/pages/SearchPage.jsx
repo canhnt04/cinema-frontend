@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { movies } from "../assets/mockData";
 import MovieCard from "./../components/MovieCard";
 import BlurCircle from "./../components/BlurCircle";
 
