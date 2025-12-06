@@ -1,4 +1,9 @@
-import { LayoutDashboardIcon, ListCollapseIcon, UsersIcon } from "lucide-react";
+import {
+  FilmIcon,
+  LayoutDashboardIcon,
+  ListCollapseIcon,
+  UsersIcon,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { assets } from "../../../assets/assets";
@@ -9,11 +14,11 @@ const AdminSidebar = () => {
 
   const adminNAvLinks = [
     { name: "Dashboard", path: "/admin", icon: LayoutDashboardIcon },
-    // {
-    //   name: "List Movies",
-    //   path: "/admin/list-movies",
-    //   icon: FilmIcon,
-    // },
+    {
+      name: "List Movies",
+      path: "/admin/list-movies",
+      icon: FilmIcon,
+    },
     // {
     //   name: "List Shows",
     //   path: "/admin/list-shows",

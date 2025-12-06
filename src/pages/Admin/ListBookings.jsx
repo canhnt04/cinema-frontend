@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { PrinterIcon } from "lucide-react";
 import Toolbar from "../../components/ui/Toolbar";
 import FullPageSpinner from "../../components/ui/FullPageSpinner";
-import { getBookings, printBooking } from "../../services/BookingService";
-import { showToast } from "../../helper/cooldownToast";
+import { getBookings } from "../../services/BookingService";
 
 const ListBookings = () => {
   const [bookings, setBookings] = useState([]);
